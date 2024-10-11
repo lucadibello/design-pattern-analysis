@@ -9,7 +9,75 @@
 \maketitle
 \tableofcontents
 
+% set href colors
+\hypersetup{colorlinks,linkcolor={blue},citecolor={blue},urlcolor={blue}}
+
 \section{Introduction}
+
+In this assingment we are going to use the pattern detection tool \href{https://users.encs.concordia.ca/~nikolaos/pattern\_detection.html}{pattern4j} to automatically detect the usage of design patterns in a chosen open-source Java project and document the result in a report. The tool is able to scan Java bytecode and detect the usage of 13 design patterns.
+
+\subsection{Project requirements}
+
+The assignment requires to choose a Java open-source project available on GitHub, which satisfies the following requirements:
+
+\begin{itemize}
+	\item At least 100 starts
+	\item At least 100 forks
+	\item At least 10 open issues
+	\item At least 50'000 lines of Java code (comments included)
+\end{itemize}
+
+\noindent In order to find a valid project, the GitHub search feature allows to filter repositories based on different criteria. For example, to find a Java project that satisfies the requirements listed above, the following query can be used:
+
+\begin{verbatim}
+  stars:>100 forks:>100 language:java
+\end{verbatim}
+
+\noindent On the other hand, in order to count the lines of code of a project without having to clone it locally, it is possible to use the following web application: \href{https://codetabs.com/count-loc/count-loc-online.html}{codetabs.com/count-loc}.
+
+\subsection{Project selection}
+
+In order to learn more about the design patterns used in famous Java projects possibly used in the industry, I looked for active projects, with a large community and a good number of stars and forks. In order to find projects
+
+In order to learn more about design patterns, I decided to look for a project that is activelly used in the industry, with a large community and a good number of stars and forks. After some research I first selected a small set of projects that satisfied the requirements:
+
+\begin{itemize}
+	\item \href{https://github.com/projectlombok/lombok}{projectlombok/lombok}: Library containing a set of useful Java annotations to reduce boilerplate code in Java applications. It has 30.7k stars, 3.7k forks, and used actively in many famous projects. It has around 98k lines of Java code (comments excluded).
+
+	      This project unfortunately was discarded as it was using the \texttt{Ant} build system, which I am not familiar with. To avoid potential issues and to be able to focus on the main task of the assignment, I decided to look for other projects using \texttt{Maven} or \texttt{Gradle}.
+
+	\item \href{https://github.com/ReactiveX/RxJava}{ReactiveX/RxJava}: Library for composing asynchronous and event-based programs using observable sequences. It provides many bindings for different languages and platforms. It has 19.9k stars, 2.9k forks, and has about 395k lines of Java code (comments excluded).
+
+	      Initially, I started this assignment with this project in mind but, unfortunately, I encountered major problems during the compilation of the project which made me discard it. The project was using the \texttt{Gradle} build system but the build process terminated with an unexpected error that I was not able to debug:
+
+	      \begin{lstlisting}[language=bash, caption={Error during compilation of RxJava project}, breaklines=true, captionpos=b]
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Could not open settings generic class cache for settings file '/Users/lucadibello/Developer/RxJava/settings.gradle' (/Users/lucadibello/.gradle/caches/7.6.4/scripts/7qrwiegia3vs821g20py0pu68).
+> BUG! exception in phase 'semantic analysis' in source unit '\_BuildScript\_' Unsupported class file major version 67
+        \end{lstlisting}
+
+	\item \href{}{benmanes/caffeine}: A high-performance caching library for Java used in many famous projects such as \textit{Apache Kafka}, \textit{Cassandra}, \textit{Neo4J} and many others. It has 15.8k starts, 1.6k forks and has about 100k lines of Java code.
+
+	      This project completely aligns with the project requirements and my personal objectives for this assignment. For these reasons, I decided to use this project for the assignment. Additionally, the project uses the \texttt{Gradle} build system, which I am more familiar with.
+
+\end{itemize}
+
+\subsection{High-level overview of the project structure}
+
+\textcolor{red}{\textbf{TODO:}} Provide a high-level overview of the project structure, what are the main packages and explain that many lines of code are related to the tests and for this reason I will also consider the test code in the design pattern analysis.
+
+This project, apart from offering an high-performance caching library, offers also a set of utilities and tools that can be used in different contexts. The main packages of the project are:
+
+\begin{itemize}
+	\item \textit{com.github.benmanes.caffeine.cache}: Contains the main classes of the caching library.
+	\item \textit{com.github.benmanes.caffeine.cache.guava}: Contains classes that provide compatibility with the Google Guava caching library.
+	\item \textit{com.github.benmanes.caffeine.cache.jcache}: Contains classes that provide statistics about the cache.
+
+\end{itemize}
+
+
 
 \pagebreak
 
