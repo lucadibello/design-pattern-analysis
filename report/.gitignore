@@ -9,3 +9,5 @@
 !*.bib
 !*.pdf
 !*.sty
+
+!images/*
