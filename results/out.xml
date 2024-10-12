@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<system>
+	<pattern name="Factory Method">
+		<instance>
+			<role name="Creator" element="com.github.benmanes.caffeine.eclipse.mutable.Sum" />
+			<role name="FactoryMethod()" element="com.github.benmanes.caffeine.eclipse.mutable.Sum::speciesNew():com.github.benmanes.caffeine.eclipse.mutable.Sum" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.github.benmanes.caffeine.cache.testing.CacheSpec$CacheExpiry" />
+			<role name="FactoryMethod()" element="com.github.benmanes.caffeine.cache.testing.CacheSpec$CacheExpiry::createExpiry():com.github.benmanes.caffeine.cache.Expiry" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.github.benmanes.caffeine.cache.NodeFactory" />
+			<role name="FactoryMethod()" element="com.github.benmanes.caffeine.cache.NodeFactory::newNode(K, java.lang.ref.ReferenceQueue, V, java.lang.ref.ReferenceQueue, int, long):com.github.benmanes.caffeine.cache.Node" />
+			<role name="FactoryMethod()" element="com.github.benmanes.caffeine.cache.NodeFactory::newNode(java.lang.Object, V, java.lang.ref.ReferenceQueue, int, long):com.github.benmanes.caffeine.cache.Node" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.github.benmanes.caffeine.cache.LinkedDeque" />
+			<role name="FactoryMethod()" element="com.github.benmanes.caffeine.cache.LinkedDeque::iterator():com.github.benmanes.caffeine.cache.LinkedDeque$PeekingIterator" />
+			<role name="FactoryMethod()" element="com.github.benmanes.caffeine.cache.LinkedDeque::descendingIterator():com.github.benmanes.caffeine.cache.LinkedDeque$PeekingIterator" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.github.benmanes.caffeine.cache.LocalAsyncCache" />
+			<role name="FactoryMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache::policy():com.github.benmanes.caffeine.cache.Policy" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.github.benmanes.caffeine.cache.AsyncLoadingCache" />
+			<role name="FactoryMethod()" element="com.github.benmanes.caffeine.cache.AsyncLoadingCache::synchronous():com.github.benmanes.caffeine.cache.LoadingCache" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.github.benmanes.caffeine.cache.Cache" />
+			<role name="FactoryMethod()" element="com.github.benmanes.caffeine.cache.Cache::policy():com.github.benmanes.caffeine.cache.Policy" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.github.benmanes.caffeine.cache.StripedBuffer" />
+			<role name="FactoryMethod()" element="com.github.benmanes.caffeine.cache.StripedBuffer::create(E):com.github.benmanes.caffeine.cache.Buffer" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.github.benmanes.caffeine.cache.CacheType" />
+			<role name="FactoryMethod()" element="com.github.benmanes.caffeine.cache.CacheType::create():com.github.benmanes.caffeine.cache.BasicCache" />
+		</instance>
+		<instance>
+			<role name="Creator" element="com.github.benmanes.caffeine.cache.SketchType" />
+			<role name="FactoryMethod()" element="com.github.benmanes.caffeine.cache.SketchType::create():com.github.benmanes.caffeine.cache.sketch.TinyLfuSketch" />
+		</instance>
+	</pattern>
+	<pattern name="Prototype" />
+	<pattern name="Singleton">
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.eclipse.mutable.SumProcedure" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.eclipse.mutable.SumProcedure::NUMBER:com.github.benmanes.caffeine.eclipse.mutable.SumProcedure" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.cache.QueueSanityTest$Ordering" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.cache.QueueSanityTest$Ordering::FIFO:com.github.benmanes.caffeine.cache.QueueSanityTest$Ordering" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.cache.testing.Weighers$RandomWeigher" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.cache.testing.Weighers$RandomWeigher::INSTANCE:com.github.benmanes.caffeine.cache.testing.Weighers$RandomWeigher" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.cache.testing.GuavaCacheFromContext$CacheMissException" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.cache.testing.GuavaCacheFromContext$CacheMissException::INSTANCE:com.github.benmanes.caffeine.cache.testing.GuavaCacheFromContext$CacheMissException" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.testing.Int" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.testing.Int::MAX_VALUE:com.github.benmanes.caffeine.testing.Int" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.cache.SingletonWeigher" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.cache.SingletonWeigher::INSTANCE:com.github.benmanes.caffeine.cache.SingletonWeigher" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.cache.DisabledBuffer" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.cache.DisabledBuffer::INSTANCE:com.github.benmanes.caffeine.cache.DisabledBuffer" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.cache.DisabledFuture" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.cache.DisabledFuture::INSTANCE:com.github.benmanes.caffeine.cache.DisabledFuture" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.cache.SystemScheduler" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.cache.SystemScheduler::INSTANCE:com.github.benmanes.caffeine.cache.SystemScheduler" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.cache.DisabledTicker" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.cache.DisabledTicker::INSTANCE:com.github.benmanes.caffeine.cache.DisabledTicker" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.cache.DisabledScheduler" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.cache.DisabledScheduler::INSTANCE:com.github.benmanes.caffeine.cache.DisabledScheduler" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.cache.SystemTicker" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.cache.SystemTicker::INSTANCE:com.github.benmanes.caffeine.cache.SystemTicker" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.cache.stats.CacheStats" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.cache.stats.CacheStats::EMPTY_STATS:com.github.benmanes.caffeine.cache.stats.CacheStats" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.cache.stats.DisabledStatsCounter" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.cache.stats.DisabledStatsCounter::INSTANCE:com.github.benmanes.caffeine.cache.stats.DisabledStatsCounter" />
+		</instance>
+		<instance>
+			<role name="Singleton" element="com.github.benmanes.caffeine.cache.impl.HazelcastCache$DummySerializationService" />
+			<role name="uniqueInstance" element="com.github.benmanes.caffeine.cache.impl.HazelcastCache$DummySerializationService::INSTANCE:com.github.benmanes.caffeine.cache.impl.HazelcastCache$DummySerializationService" />
+		</instance>
+	</pattern>
+	<pattern name="(Object)Adapter">
+		<instance>
+			<role name="Adaptee" element="com.github.benmanes.caffeine.cache.References$WeakKeyReference" />
+			<role name="Adapter" element="com.github.benmanes.caffeine.cache.FS" />
+			<role name="adaptee" element="com.github.benmanes.caffeine.cache.FS::key:com.github.benmanes.caffeine.cache.References$WeakKeyReference" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.FS::retire():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.FS::die():void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.github.benmanes.caffeine.cache.LocalAsyncLoadingCache" />
+			<role name="Adapter" element="com.github.benmanes.caffeine.cache.LocalAsyncLoadingCache$LoadingCacheView" />
+			<role name="adaptee" element="com.github.benmanes.caffeine.cache.LocalAsyncLoadingCache$LoadingCacheView::asyncCache:com.github.benmanes.caffeine.cache.LocalAsyncLoadingCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncLoadingCache$LoadingCacheView::get(K):java.lang.Object" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncLoadingCache$LoadingCacheView::getAll(java.lang.Iterable):java.util.Map" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncLoadingCache$LoadingCacheView::refresh(K):java.util.concurrent.CompletableFuture" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.github.benmanes.caffeine.cache.stats.StatsCounter" />
+			<role name="Adapter" element="com.github.benmanes.caffeine.cache.UnboundedLocalCache" />
+			<role name="adaptee" element="com.github.benmanes.caffeine.cache.UnboundedLocalCache::statsCounter:com.github.benmanes.caffeine.cache.stats.StatsCounter" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.UnboundedLocalCache::getAllPresent(java.lang.Iterable):java.util.Map" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.UnboundedLocalCache::computeIfAbsent(K, java.util.function.Function, boolean, boolean):java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.github.benmanes.caffeine.cache.BoundedLocalCache" />
+			<role name="Adapter" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$BoundedPolicy" />
+			<role name="adaptee" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$BoundedPolicy::cache:com.github.benmanes.caffeine.cache.BoundedLocalCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$BoundedPolicy::isRecordingStats():boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$BoundedPolicy::getIfPresentQuietly(K):java.lang.Object" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$BoundedPolicy::refreshes():java.util.Map" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$BoundedPolicy::eviction():java.util.Optional" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$BoundedPolicy::expireAfterAccess():java.util.Optional" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$BoundedPolicy::expireAfterWrite():java.util.Optional" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$BoundedPolicy::expireVariably():java.util.Optional" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$BoundedPolicy::refreshAfterWrite():java.util.Optional" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.github.benmanes.caffeine.cache.NodeFactory" />
+			<role name="Adapter" element="com.github.benmanes.caffeine.cache.BoundedLocalCache" />
+			<role name="adaptee" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::nodeFactory:com.github.benmanes.caffeine.cache.NodeFactory" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::referenceKey(K):java.lang.Object" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::isPendingEviction(K):boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::getIfPresentQuietly(java.lang.Object):java.lang.Object" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::getAllPresent(java.lang.Iterable):java.util.Map" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::replace(K, V, V, boolean):boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::computeIfAbsent(K, java.util.function.Function, boolean, boolean):java.lang.Object" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::compute(K, java.util.function.BiFunction, com.github.benmanes.caffeine.cache.Expiry, boolean, boolean):java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.github.benmanes.caffeine.cache.Cache" />
+			<role name="Adapter" element="com.github.benmanes.caffeine.cache.impl.CaffeineCache" />
+			<role name="adaptee" element="com.github.benmanes.caffeine.cache.impl.CaffeineCache::cache:com.github.benmanes.caffeine.cache.Cache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.impl.CaffeineCache::get(K):java.lang.Object" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.impl.CaffeineCache::put(K, V):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.impl.CaffeineCache::remove(K):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.impl.CaffeineCache::clear():void" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.github.benmanes.caffeine.cache.BoundedLocalCache" />
+			<role name="Adapter" element="com.github.benmanes.caffeine.cache.WeakInterner" />
+			<role name="adaptee" element="com.github.benmanes.caffeine.cache.WeakInterner::cache:com.github.benmanes.caffeine.cache.BoundedLocalCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.WeakInterner::intern(E):java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="Adaptee" element="com.github.benmanes.caffeine.cache.Weigher" />
+			<role name="Adapter" element="com.github.benmanes.caffeine.cache.BoundedLocalCache" />
+			<role name="adaptee" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::weigher:com.github.benmanes.caffeine.cache.Weigher" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::replace(K, V, V, boolean):boolean" />
+		</instance>
+	</pattern>
+	<pattern name="Command" />
+	<pattern name="Composite" />
+	<pattern name="Decorator">
+		<instance>
+			<role name="Component" element="com.github.benmanes.caffeine.cache.Weigher" />
+			<role name="Decorator" element="com.github.benmanes.caffeine.cache.BoundedWeigher" />
+			<role name="component" element="com.github.benmanes.caffeine.cache.BoundedWeigher::delegate:com.github.benmanes.caffeine.cache.Weigher" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.BoundedWeigher::weigh(K, V):int" />
+		</instance>
+		<instance>
+			<role name="Component" element="com.github.benmanes.caffeine.cache.Scheduler" />
+			<role name="Decorator" element="com.github.benmanes.caffeine.cache.GuardedScheduler" />
+			<role name="component" element="com.github.benmanes.caffeine.cache.GuardedScheduler::delegate:com.github.benmanes.caffeine.cache.Scheduler" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.GuardedScheduler::schedule(java.util.concurrent.Executor, java.lang.Runnable, long, java.util.concurrent.TimeUnit):java.util.concurrent.Future" />
+		</instance>
+		<instance>
+			<role name="Component" element="com.github.benmanes.caffeine.cache.stats.StatsCounter" />
+			<role name="Decorator" element="com.github.benmanes.caffeine.cache.stats.GuardedStatsCounter" />
+			<role name="component" element="com.github.benmanes.caffeine.cache.stats.GuardedStatsCounter::delegate:com.github.benmanes.caffeine.cache.stats.StatsCounter" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.stats.GuardedStatsCounter::recordHits(int):void" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.stats.GuardedStatsCounter::recordMisses(int):void" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.stats.GuardedStatsCounter::recordLoadSuccess(long):void" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.stats.GuardedStatsCounter::recordLoadFailure(long):void" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.stats.GuardedStatsCounter::recordEviction(int, com.github.benmanes.caffeine.cache.RemovalCause):void" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.stats.GuardedStatsCounter::snapshot():com.github.benmanes.caffeine.cache.stats.CacheStats" />
+		</instance>
+	</pattern>
+	<pattern name="Observer" />
+	<pattern name="State">
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsMapView" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.LocalCache" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsMapView::delegate:com.github.benmanes.caffeine.cache.LocalCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsMapView::containsKey(java.lang.Object):boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsMapView::putIfAbsent(K, V):java.lang.Object" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsMapView::remove(java.lang.Object, java.lang.Object):boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsMapView::replace(K, V):java.lang.Object" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsMapView::replace(K, V, V):boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsMapView::computeIfAbsent(K, java.util.function.Function):java.lang.Object" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsMapView::computeIfPresent(K, java.util.function.BiFunction):java.lang.Object" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsMapView::compute(K, java.util.function.BiFunction):java.lang.Object" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsMapView::merge(K, V, java.util.function.BiFunction):java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncBulkCompleter" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.LocalCache" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncBulkCompleter::cache:com.github.benmanes.caffeine.cache.LocalCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncBulkCompleter::apply(java.util.Map, java.lang.Throwable):java.util.Map" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.FactoryBenchmark$MethodHandleFactory" />
+			<role name="State" element="com.github.benmanes.caffeine.FactoryBenchmark$AlphaConstructor" />
+			<role name="state" element="com.github.benmanes.caffeine.FactoryBenchmark$MethodHandleFactory::lambda:com.github.benmanes.caffeine.FactoryBenchmark$AlphaConstructor" />
+			<role name="Request()" element="com.github.benmanes.caffeine.FactoryBenchmark$MethodHandleFactory::lambda():com.github.benmanes.caffeine.FactoryBenchmark$Alpha" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.testing.CacheGenerator" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.testing.CacheSpec" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.testing.CacheGenerator::cacheSpec:com.github.benmanes.caffeine.cache.testing.CacheSpec" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.CacheGenerator::combinations():java.util.Set" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.CacheGenerator::isCompatible(com.github.benmanes.caffeine.cache.testing.CacheContext):boolean" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.testing.CacheContext" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.AsyncCache" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.testing.CacheContext::asyncCache:com.github.benmanes.caffeine.cache.AsyncCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.CacheContext::buildAsync():com.github.benmanes.caffeine.cache.AsyncLoadingCache" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.testing.AsyncCacheSubject" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.AsyncCache" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.testing.AsyncCacheSubject::actual:com.github.benmanes.caffeine.cache.AsyncCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.AsyncCacheSubject::isEmpty():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.AsyncCacheSubject::hasSize(long):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.AsyncCacheSubject::hasSizeLessThan(long):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.AsyncCacheSubject::hasSizeGreaterThan(long):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.AsyncCacheSubject::containsKey(java.lang.Object):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.AsyncCacheSubject::doesNotContainKey(java.lang.Object):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.AsyncCacheSubject::containsValue(java.lang.Object):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.AsyncCacheSubject::containsEntry(java.lang.Object, java.lang.Object):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.AsyncCacheSubject::containsExactlyEntriesIn(java.util.Map):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.testing.CacheContext" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.Cache" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.testing.CacheContext::cache:com.github.benmanes.caffeine.cache.Cache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.CacheContext::cleanUp():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.CacheContext::stats():com.github.benmanes.caffeine.cache.stats.CacheStats" />
+		</instance>
+		<instance>
+			<role name="State" element="com.github.benmanes.caffeine.cache.Node" />
+			<role name="Context" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$AddTask" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$AddTask::node:com.github.benmanes.caffeine.cache.Node" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$AddTask::run():void" />
+		</instance>
+		<instance>
+			<role name="State" element="com.github.benmanes.caffeine.cache.Node" />
+			<role name="Context" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$EntryIterator" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$EntryIterator::next:com.github.benmanes.caffeine.cache.Node" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache$EntryIterator::hasNext():boolean" />
+		</instance>
+		<instance>
+			<role name="State" element="com.github.benmanes.caffeine.cache.LoadingCache" />
+			<role name="Context" element="com.github.benmanes.caffeine.cache.Stresser" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.Stresser::cache:com.github.benmanes.caffeine.cache.LoadingCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.Stresser::lambda$execute$2():java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="State" element="com.github.benmanes.caffeine.cache.stats.StatsCounter" />
+			<role name="Context" element="com.github.benmanes.caffeine.cache.CaffeineTest" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.CaffeineTest::statsCounter:com.github.benmanes.caffeine.cache.stats.StatsCounter" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.CaffeineTest::recordStats_custom():void" />
+		</instance>
+		<instance>
+			<role name="State" element="com.github.benmanes.caffeine.cache.AsyncLoadingCache" />
+			<role name="Context" element="com.github.benmanes.caffeine.cache.issues.Issue298Test" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.issues.Issue298Test::cache:com.github.benmanes.caffeine.cache.AsyncLoadingCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.issues.Issue298Test::before():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.issues.Issue298Test::readDuringCreate():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.issues.Issue298Test::lambda$readDuringCreate$0(java.util.concurrent.CompletableFuture):void" />
+		</instance>
+		<instance>
+			<role name="State" element="com.github.benmanes.caffeine.cache.LocalAsyncCache" />
+			<role name="Context" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::asyncCache:com.github.benmanes.caffeine.cache.LocalAsyncCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::isEmpty():boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::size():int" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::clear():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::containsKey(java.lang.Object):boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::containsValue(java.lang.Object):boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::get(java.lang.Object):java.util.concurrent.CompletableFuture" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::putIfAbsent(K, java.util.concurrent.CompletableFuture):java.util.concurrent.CompletableFuture" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::put(K, java.util.concurrent.CompletableFuture):java.util.concurrent.CompletableFuture" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::replace(K, java.util.concurrent.CompletableFuture):java.util.concurrent.CompletableFuture" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::replace(K, java.util.concurrent.CompletableFuture, java.util.concurrent.CompletableFuture):boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::remove(java.lang.Object):java.util.concurrent.CompletableFuture" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::remove(java.lang.Object, java.lang.Object):boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::computeIfAbsent(K, java.util.function.Function):java.util.concurrent.CompletableFuture" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::computeIfPresent(K, java.util.function.BiFunction):java.util.concurrent.CompletableFuture" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::compute(K, java.util.function.BiFunction):java.util.concurrent.CompletableFuture" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::merge(K, java.util.concurrent.CompletableFuture, java.util.function.BiFunction):java.util.concurrent.CompletableFuture" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::forEach(java.util.function.BiConsumer):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::keySet():java.util.Set" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::values():java.util.Collection" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::entrySet():java.util.Set" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::equals(java.lang.Object):boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::hashCode():int" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::toString():java.lang.String" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AsyncAsMapView::lambda$computeIfAbsent$1(java.lang.Object, java.lang.Throwable):void" />
+		</instance>
+		<instance>
+			<role name="State" element="com.github.benmanes.caffeine.cache.Scheduler" />
+			<role name="Context" element="com.github.benmanes.caffeine.cache.PacerTest" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.PacerTest::scheduler:com.github.benmanes.caffeine.cache.Scheduler" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.PacerTest::schedule_initialize():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.PacerTest::schedule_initialize_recurse():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.PacerTest::schedule_cancel_schedule():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.PacerTest::schedule_beforeNextFireTime_minimumDelay():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.PacerTest::schedule_beforeNextFireTime_customDelay():void" />
+		</instance>
+		<instance>
+			<role name="State" element="com.github.benmanes.caffeine.cache.Scheduler" />
+			<role name="Context" element="com.github.benmanes.caffeine.cache.Pacer" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.Pacer::scheduler:com.github.benmanes.caffeine.cache.Scheduler" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.Pacer::schedule(java.util.concurrent.Executor, java.lang.Runnable, long, long):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.EvictionBenchmark" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.BasicCache" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.EvictionBenchmark::cache:com.github.benmanes.caffeine.cache.BasicCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.EvictionBenchmark::setup():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.EvictionBenchmark::evict(com.github.benmanes.caffeine.cache.EvictionBenchmark$ThreadState):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.GetPutBenchmark" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.BasicCache" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.GetPutBenchmark::cache:com.github.benmanes.caffeine.cache.BasicCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.GetPutBenchmark::setup():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.GetPutBenchmark::readOnly(com.github.benmanes.caffeine.cache.GetPutBenchmark$ThreadState):java.lang.Boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.GetPutBenchmark::writeOnly(com.github.benmanes.caffeine.cache.GetPutBenchmark$ThreadState):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.GetPutBenchmark::readwrite_get(com.github.benmanes.caffeine.cache.GetPutBenchmark$ThreadState):java.lang.Boolean" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.GetPutBenchmark::readwrite_put(com.github.benmanes.caffeine.cache.GetPutBenchmark$ThreadState):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.PutRemoveBenchmark" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.BasicCache" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.PutRemoveBenchmark::cache:com.github.benmanes.caffeine.cache.BasicCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.PutRemoveBenchmark::setup():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.PutRemoveBenchmark::put(com.github.benmanes.caffeine.cache.PutRemoveBenchmark$ThreadState):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.PutRemoveBenchmark::remove(com.github.benmanes.caffeine.cache.PutRemoveBenchmark$ThreadState):void" />
+		</instance>
+		<instance>
+			<role name="State" element="com.github.benmanes.caffeine.jsr166.MapImplementation" />
+			<role name="Context" element="com.github.benmanes.caffeine.jsr166.MapTest" />
+			<role name="state" element="com.github.benmanes.caffeine.jsr166.MapTest::impl:com.github.benmanes.caffeine.jsr166.MapImplementation" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.MapTest::testImplSanity():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.MapTest::testBug8186171():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.MapTest::testBug8210280():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.MapTest::testClone():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.MapTest::testConcurrentAccess():void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.UnboundedLocalCache" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.stats.StatsCounter" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.UnboundedLocalCache::statsCounter:com.github.benmanes.caffeine.cache.stats.StatsCounter" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.UnboundedLocalCache::getIfPresent(java.lang.Object, boolean):java.lang.Object" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.UnboundedLocalCache::getAllPresent(java.lang.Iterable):java.util.Map" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.UnboundedLocalCache::computeIfAbsent(K, java.util.function.Function, boolean, boolean):java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="State" element="com.github.benmanes.caffeine.cache.buffer.ReadBuffer" />
+			<role name="Context" element="com.github.benmanes.caffeine.cache.ReadBufferBenchmark" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.ReadBufferBenchmark::buffer:com.github.benmanes.caffeine.cache.buffer.ReadBuffer" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.ReadBufferBenchmark::record(com.github.benmanes.caffeine.cache.ReadBufferBenchmark$RecordCounter):void" />
+		</instance>
+		<instance>
+			<role name="State" element="com.github.benmanes.caffeine.jsr166.CollectionImplementation" />
+			<role name="Context" element="com.github.benmanes.caffeine.jsr166.Collection8Test" />
+			<role name="state" element="com.github.benmanes.caffeine.jsr166.Collection8Test::impl:com.github.benmanes.caffeine.jsr166.CollectionImplementation" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testEmptyMeansEmpty():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::emptyMeansEmpty(java.util.Collection):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testNullPointerExceptions():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testNoSuchElementExceptions():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testRemoveIf():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testElementRemovalDuringTraversal():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testRandomElementRemovalDuringTraversal():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testTraversalEquivalence():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testForEachRemainingConsistentWithDefaultImplementation():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testRemoveAfterForEachRemaining():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testStreamForEach():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testStreamForEachConcurrentStressTest():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testForEach():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testStickySpliteratorExhaustion():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testDetectRaces():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testLateBindingStyle():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testGetComparator_IllegalStateException():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::testCollectionCopies():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::DISABLED_testReplaceAllIsNotStructuralModification():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::lambda$testDetectRaces$70(java.util.Collection, java.util.function.Consumer, java.util.function.Consumer):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.jsr166.Collection8Test::lambda$emptyMeansEmpty$1(java.util.List):void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.LinkedDequeSubject" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.LinkedDeque" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.LinkedDequeSubject::actual:com.github.benmanes.caffeine.cache.LinkedDeque" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LinkedDequeSubject::isValid():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.LinkedDequeSubject::checkElement(java.lang.Object):void" />
+		</instance>
+		<instance>
+			<role name="State" element="com.github.benmanes.caffeine.cache.sketch.TinyLfuSketch" />
+			<role name="Context" element="com.github.benmanes.caffeine.cache.FrequencySketchBenchmark" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.FrequencySketchBenchmark::sketch:com.github.benmanes.caffeine.cache.sketch.TinyLfuSketch" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.FrequencySketchBenchmark::setup():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.FrequencySketchBenchmark::increment():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.FrequencySketchBenchmark::frequency():int" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.FrequencySketchBenchmark::reset():void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.impl.CaffeineCache" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.Cache" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.impl.CaffeineCache::cache:com.github.benmanes.caffeine.cache.Cache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.impl.CaffeineCache::get(K):java.lang.Object" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.impl.CaffeineCache::put(K, V):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.impl.CaffeineCache::remove(K):void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.impl.CaffeineCache::clear():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.impl.CaffeineCache::cleanUp():void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.testing.GuavaCacheFromContext$SingleLoader" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.CacheLoader" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.testing.GuavaCacheFromContext$SingleLoader::delegate:com.github.benmanes.caffeine.cache.CacheLoader" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.testing.GuavaCacheFromContext$SingleLoader::load(K):java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.profiler.CacheProfiler" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.BasicCache" />
+			<role name="state" element="com.github.benmanes.caffeine.profiler.CacheProfiler::cache:com.github.benmanes.caffeine.cache.BasicCache" />
+			<role name="Request()" element="com.github.benmanes.caffeine.profiler.CacheProfiler::reads():void" />
+			<role name="Request()" element="com.github.benmanes.caffeine.profiler.CacheProfiler::writes():void" />
+		</instance>
+		<instance>
+			<role name="Context" element="com.github.benmanes.caffeine.cache.UnboundedLocalCache" />
+			<role name="State" element="com.github.benmanes.caffeine.cache.RemovalListener" />
+			<role name="state" element="com.github.benmanes.caffeine.cache.UnboundedLocalCache::removalListener:com.github.benmanes.caffeine.cache.RemovalListener" />
+			<role name="Request()" element="com.github.benmanes.caffeine.cache.UnboundedLocalCache::lambda$notifyRemoval$0(java.lang.Object, java.lang.Object, com.github.benmanes.caffeine.cache.RemovalCause):void" />
+		</instance>
+		<instance>
+			<role name="State" element="com.github.benmanes.caffeine.eclipse.mutable.Sum" />
+			<role name="Context" element="com.github.benmanes.caffeine.eclipse.mutable.SumProcedure" />
+			<role name="state" element="com.github.benmanes.caffeine.eclipse.mutable.SumProcedure::sum:com.github.benmanes.caffeine.eclipse.mutable.Sum" />
+			<role name="Request()" element="com.github.benmanes.caffeine.eclipse.mutable.SumProcedure::create():com.github.benmanes.caffeine.eclipse.mutable.SumProcedure" />
+			<role name="Request()" element="com.github.benmanes.caffeine.eclipse.mutable.SumProcedure::value(T):void" />
+		</instance>
+	</pattern>
+	<pattern name="Strategy" />
+	<pattern name="Bridge">
+		<instance>
+			<role name="Abstraction" element="com.github.benmanes.caffeine.cache.BoundedLocalCache" />
+			<role name="Implementor" element="com.github.benmanes.caffeine.cache.NodeFactory" />
+			<role name="implementor" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::nodeFactory:com.github.benmanes.caffeine.cache.NodeFactory" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::put(K, V, com.github.benmanes.caffeine.cache.Expiry, boolean):java.lang.Object" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::lambda$remap$16(boolean, java.lang.Object[], java.util.function.BiFunction, java.lang.Object, long[], int[], com.github.benmanes.caffeine.cache.Expiry, java.lang.Object, java.lang.Object[], java.lang.Object[], com.github.benmanes.caffeine.cache.RemovalCause[], com.github.benmanes.caffeine.cache.Node[], java.lang.Object, com.github.benmanes.caffeine.cache.Node):com.github.benmanes.caffeine.cache.Node" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::lambda$doComputeIfAbsent$14(java.lang.Object[], java.util.function.Function, java.lang.Object, long[], int[], java.lang.Object[], java.lang.Object[], com.github.benmanes.caffeine.cache.RemovalCause[], com.github.benmanes.caffeine.cache.Node[], java.lang.Object, com.github.benmanes.caffeine.cache.Node):com.github.benmanes.caffeine.cache.Node" />
+		</instance>
+		<instance>
+			<role name="Abstraction" element="com.github.benmanes.caffeine.lincheck.AbstractLincheckCacheTest" />
+			<role name="Implementor" element="com.github.benmanes.caffeine.cache.LoadingCache" />
+			<role name="implementor" element="com.github.benmanes.caffeine.lincheck.AbstractLincheckCacheTest::cache:com.github.benmanes.caffeine.cache.LoadingCache" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.lincheck.AbstractLincheckCacheTest::get(int):java.lang.Integer" />
+		</instance>
+		<instance>
+			<role name="Abstraction" element="com.github.benmanes.caffeine.cache.BoundedLocalCache" />
+			<role name="Implementor" element="com.github.benmanes.caffeine.cache.Buffer" />
+			<role name="implementor" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::readBuffer:com.github.benmanes.caffeine.cache.Buffer" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::afterRead(com.github.benmanes.caffeine.cache.Node, long, boolean):java.lang.Object" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::drainReadBuffer():void" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::clear():void" />
+		</instance>
+		<instance>
+			<role name="Abstraction" element="com.github.benmanes.caffeine.cache.BoundedLocalCache" />
+			<role name="Implementor" element="com.github.benmanes.caffeine.cache.Weigher" />
+			<role name="implementor" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::weigher:com.github.benmanes.caffeine.cache.Weigher" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::put(K, V, com.github.benmanes.caffeine.cache.Expiry, boolean):java.lang.Object" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::replace(K, V):java.lang.Object" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::replace(K, V, V, boolean):boolean" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::lambda$remap$16(boolean, java.lang.Object[], java.util.function.BiFunction, java.lang.Object, long[], int[], com.github.benmanes.caffeine.cache.Expiry, java.lang.Object, java.lang.Object[], java.lang.Object[], com.github.benmanes.caffeine.cache.RemovalCause[], com.github.benmanes.caffeine.cache.Node[], java.lang.Object, com.github.benmanes.caffeine.cache.Node):com.github.benmanes.caffeine.cache.Node" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::lambda$doComputeIfAbsent$14(java.lang.Object[], java.util.function.Function, java.lang.Object, long[], int[], java.lang.Object[], java.lang.Object[], com.github.benmanes.caffeine.cache.RemovalCause[], com.github.benmanes.caffeine.cache.Node[], java.lang.Object, com.github.benmanes.caffeine.cache.Node):com.github.benmanes.caffeine.cache.Node" />
+		</instance>
+		<instance>
+			<role name="Abstraction" element="com.github.benmanes.caffeine.cache.BoundedLocalCache" />
+			<role name="Implementor" element="com.github.benmanes.caffeine.cache.RemovalListener" />
+			<role name="implementor" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::evictionListener:com.github.benmanes.caffeine.cache.RemovalListener" />
+			<role name="Operation()" element="com.github.benmanes.caffeine.cache.BoundedLocalCache::notifyEviction(K, V, com.github.benmanes.caffeine.cache.RemovalCause):void" />
+		</instance>
+	</pattern>
+	<pattern name="Template Method">
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.cache.LinkedDequeTests$TestLinkedValueGenerator" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LinkedDequeTests$TestLinkedValueGenerator::create(java.lang.Object[]):java.util.Queue" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.cache.buffer.ReadBuffer" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.buffer.ReadBuffer::drain():void" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.google.MapTestFactory$TestAsyncMapGenerator" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.google.MapTestFactory$TestAsyncMapGenerator::create(java.lang.Object[]):java.util.Map" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.jsr166.JSR166TestCase$CheckedRecursiveAction" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.jsr166.JSR166TestCase$CheckedRecursiveAction::compute():void" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.jsr166.JSR166TestCase$CheckedCallable" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.jsr166.JSR166TestCase$CheckedCallable::call():java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.jsr166.JSR166TestCase$CheckedRecursiveTask" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.jsr166.JSR166TestCase$CheckedRecursiveTask::compute():java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.jsr166.JSR166TestCase$CheckedInterruptedRunnable" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.jsr166.JSR166TestCase$CheckedInterruptedRunnable::run():void" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.jsr166.JSR166TestCase$ThreadShouldThrow" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.jsr166.JSR166TestCase$ThreadShouldThrow::run():void" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.jsr166.JSR166TestCase$CheckedRunnable" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.jsr166.JSR166TestCase$CheckedRunnable::run():void" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.apache.CaffeineMapTestCase" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.apache.CaffeineMapTestCase::makeObject():java.util.Map" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.cache.AbstractLinkedDeque$AbstractLinkedIterator" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.AbstractLinkedDeque$AbstractLinkedIterator::next():java.lang.Object" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView::getIfPresent(K):java.lang.Object" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView::getAllPresent(java.lang.Iterable):java.util.Map" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView::get(K, java.util.function.Function):java.lang.Object" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView::getAll(java.lang.Iterable, java.util.function.Function):java.util.Map" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView::put(K, V):void" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView::invalidate(K):void" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView::invalidateAll(java.lang.Iterable):void" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView::invalidateAll():void" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView::estimatedSize():long" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView::stats():com.github.benmanes.caffeine.cache.stats.CacheStats" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView::cleanUp():void" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView::policy():com.github.benmanes.caffeine.cache.Policy" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.LocalAsyncCache$AbstractCacheView::asMap():java.util.concurrent.ConcurrentMap" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.cache.AbstractLinkedDeque" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.AbstractLinkedDeque::offerFirst(E):boolean" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.AbstractLinkedDeque::offerLast(E):boolean" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.AbstractLinkedDeque::removeFirstOccurrence(java.lang.Object):boolean" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.AbstractLinkedDeque::removeLastOccurrence(java.lang.Object):boolean" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.AbstractLinkedDeque::removeAll(java.util.Collection):boolean" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.cache.BaseMpscLinkedArrayQueue" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.BaseMpscLinkedArrayQueue::offerSlowPath(long, long, long):int" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.BaseMpscLinkedArrayQueue::resize(long, E[], long, E):void" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.cache.StripedBuffer" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.StripedBuffer::expandOrRetry(E, int, int, boolean):int" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.cache.Node" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.Node::toString():java.lang.String" />
+		</instance>
+		<instance>
+			<role name="AbstractClass" element="com.github.benmanes.caffeine.cache.TimerWheel$Traverser" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.TimerWheel$Traverser::hasNext():boolean" />
+			<role name="TemplateMethod()" element="com.github.benmanes.caffeine.cache.TimerWheel$Traverser::computeNext():com.github.benmanes.caffeine.cache.Node" />
+		</instance>
+	</pattern>
+	<pattern name="Visitor" />
+	<pattern name="Proxy" />
+	<pattern name="Proxy2" />
+	<pattern name="Chain of Responsibility" />
+</system>
+
