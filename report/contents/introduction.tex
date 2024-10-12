@@ -1,0 +1,82 @@
+\section{Introduction}
+
+In this assingment we are going to use the pattern detection tool \href{https://users.encs.concordia.ca/~nikolaos/pattern\_detection.html}{pattern4j} to automatically detect the usage of design patterns in a chosen open-source Java project and document the result in a report. The tool is able to scan Java bytecode and detect the usage of 13 design patterns.
+
+The assignment requires to choose a Java open-source project available on GitHub, which satisfies the following requirements:
+
+\begin{itemize}
+	\item At least 100 starts
+	\item At least 100 forks
+	\item At least 10 open issues
+	\item At least 50'000 lines of Java code (comments included)
+\end{itemize}
+
+\noindent In order to find a valid project, the GitHub search feature allows to filter repositories based on different criteria. For example, to find a Java project that satisfies the requirements listed above, the following query can be used:
+
+\begin{verbatim}
+  stars:>100 forks:>100 language:java
+\end{verbatim}
+
+\noindent On the other hand, in order to count the lines of code of a project without having to clone it locally, it is possible to use the following web application: \href{https://codetabs.com/count-loc/count-loc-online.html}{codetabs.com/count-loc}.
+
+\subsection{Project selection}
+
+In order to learn more about the design patterns used in famous Java projects possibly used in the industry, I looked for active projects, with a large community and a good number of stars and forks. In order to find projects
+
+In order to learn more about design patterns, I decided to look for a project that is activelly used in the industry, with a large community and a good number of stars and forks. After some research I first selected a small set of projects that satisfied the requirements:
+
+\begin{itemize}
+	\item \href{https://github.com/projectlombok/lombok}{projectlombok/lombok}: Library containing a set of useful Java annotations to reduce boilerplate code in Java applications. It has 30.7k stars, 3.7k forks, and used actively in many famous projects. It has around 98k lines of Java code (comments excluded).
+
+	      This project unfortunately was discarded as it was using the \texttt{Ant} build system, which I am not familiar with. To avoid potential issues and to be able to focus on the main task of the assignment, I decided to look for other projects using \texttt{Maven} or \texttt{Gradle}.
+
+	\item \href{https://github.com/ReactiveX/RxJava}{ReactiveX/RxJava}: Library for composing asynchronous and event-based programs using observable sequences. It provides many bindings for different languages and platforms. It has 19.9k stars, 2.9k forks, and has about 395k lines of Java code (comments excluded).
+
+	      Initially, I started this assignment with this project in mind but, unfortunately, I encountered major problems during the compilation of the project which made me discard it. The project was using the \texttt{Gradle} build system but the build process terminated with an unexpected error that I was not able to debug.
+
+      \item \href{https://github.com/ben-manes/caffeine}{benmanes/caffeine}: A high-performance caching library for Java used in many famous projects such as \textit{Apache Kafka}, \textit{Cassandra}, \textit{Neo4J} and many others. It has 15.8k starts, 1.6k forks and has about 100k lines of Java code. This project unfortunately, representing a mature and well-maintained Java library (as on the \displaydate{projectdate}) only had 4 open issues on GitHub.
+
+    This project completely aligns with the project requirements and my personal objectives for this assignment. For these reasons, I decided to use this project for the assignment. Additionally, the project uses the \texttt{Gradle} build system, which I am more familiar with. I was able to build the project without any complication, refer to \autoref{sec:building} for more details.
+
+\end{itemize}
+
+\subsection{High-level overview of the project structure}
+
+This project, apart from offering an high-performance caching library, offers two adapters for the Google Guava and JCache caching libraries. The project is divided into the following main packages:
+
+\begin{itemize}
+	\item \texttt{com.github.benmanes.caffeine.cache}: Main package of the library, contains the core classes of the caching library.
+  \item \texttt{com.github.benmanes.caffeine.cache.guava}: Contains classes that provide compatibility with the Google Guava caching library. \cite{caffeine:guava}
+  \item \texttt{com.github.benmanes.caffeine.cache.jcache}: Adapter for the \textit{JSR-107 JCache} caching API. \cite{caffeine:jcache}
+\end{itemize}
+
+In this assignment, I will consider only \texttt{com.github.benmanes.caffeine.cache} package for the design pattern analysis along with the test code.
+
+\subsection{Building and analyzing Java bytecode}
+\label{sec:building}
+
+The project can be easily built using the provided \textit{Gradle Wrapper} script \texttt{gradlew}. This script will download the required version of \textit{Gradle}, configure the dependencies and build the project. To do so, the following command has been used:
+
+\begin{lstlisting}[language=bash, caption={Building the Caffeine project with Gradle}]
+              cd caffeine && ./gradlew build -x test -x javadoc
+\end{lstlisting}
+
+\noindent The additional flags \texttt{-x test} and \texttt{-x javadoc} are used to skip the execution of the tests and the generation of the documentation, respectively. The two steps are quite time-consuming and would not add any value to this report. For these reasons, the two steps have been skipped.
+
+The output bytecode we are going to analyze is located in these two directories:
+
+\begin{itemize}
+  \item \texttt{caffeine/build/classes/java/main}: Compiled caching library.
+  \item \texttt{caffeine/build/classes/java/main}: Compiled tests of the project.
+\end{itemize}
+
+\noindent In order to start the design pattern analysis tool \texttt{pattern4j} in headless mode, the following command can be used:
+
+\begin{lstlisting}[language=bash, caption={Bash command to start the pattern4j design pattern analysis tool without GUI}]
+              java -Xms32m -Xmx512m -jar ./tools/pattern4.jar -target "./caffeine/build/classes/java/main" -output "./results/out.xml"
+\end{lstlisting}
+
+\noindent The tool will analyze the \texttt{class} files present in the target directory and return an XML file containing the detected design patterns and their locations in the code. It is also possible to start the GUI version of the tool by simply removing the \texttt{target} and \texttt{output} flags.
+
+To streamline both building and analysis processes, I created an highly customizable (currently configured with MacOS with Java 21) Makefile with useful goals to build and analyze the project. The Makefile can be found in the root of the repository.
+

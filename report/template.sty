@@ -15,6 +15,7 @@
 \usepackage{listings}
 \usepackage[backend=biber]{biblatex}
 \addbibresource{references.bib}
+\usepackage{datetime}
 
 % listings settings for bash
 \lstset{
@@ -24,3 +25,7 @@
     basicstyle=\ttfamily,      % Use monospaced font
     literate={-}{-}1           % Ensure dashes render correctly
 }
+
+% Define some useful dates
+\newdate{projectdate}{12}{10}{2024}
+\date{\displaydate{projectdate}}
