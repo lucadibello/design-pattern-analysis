@@ -10,12 +10,12 @@ RUN apk add --no-cache python3 py3-pip nodejs npm ripgrep fzf rust cargo go perl
 RUN apk add --no-cache build-base libtool autoconf automake cmake gettext gettext-dev gcc g++
 
 # Install Neovim from source
-# RUN git clone https://github.com/neovim/neovim /tmp/neovim && \
-#   cd /tmp/neovim && \
-#   git checkout stable && \
-#   make CMAKE_BUILD_TYPE=Release && \
-#   make install && \
-#   rm -rf /tmp/neovim
+RUN git clone https://github.com/neovim/neovim /tmp/neovim && \
+  cd /tmp/neovim && \
+  git checkout stable && \
+  make CMAKE_BUILD_TYPE=Release && \
+  make install && \
+  rm -rf /tmp/neovim
 
 # Set useful environment variables
 ENV JAVA_VERSION=21
