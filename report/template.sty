@@ -6,11 +6,21 @@
 \usepackage{amsmath,amssymb}
 \usepackage{bm}
 \usepackage[pdftex,bookmarks,colorlinks,breaklinks]{hyperref}
-\hypersetup{linkcolor=black,citecolor=black,filecolor=black,urlcolor=black} % black links, for printed output
+\hypersetup{linkcolor=black, citecolor=black, filecolor=black, linktocpage}
 \usepackage{memhfixc}
 \usepackage{pdfsync}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \setlength{\headheight}{13.6pt}
 \usepackage{listings}
+\usepackage[backend=biber]{biblatex}
+\addbibresource{references.bib}
 
+% listings settings for bash
+\lstset{
+    language=bash,            % Specify the language
+    breaklines=true,           % Enable line breaking
+    captionpos=b,              % Caption position at the bottom
+    basicstyle=\ttfamily,      % Use monospaced font
+    literate={-}{-}1           % Ensure dashes render correctly
+}
