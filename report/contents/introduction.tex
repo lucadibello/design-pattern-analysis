@@ -72,8 +72,10 @@ The output bytecode we are going to analyze is located in these two directories:
 
 \noindent In order to start the design pattern analysis tool \texttt{pattern4j} in headless mode, the following command can be used:
 
-\begin{lstlisting}[language=bash, caption={Bash command to start the pattern4j design pattern analysis tool without GUI}]
-              java -Xms32m -Xmx512m -jar ./tools/pattern4.jar -target "./caffeine/build/classes/java/main" -output "./results/out.xml"
+\begin{lstlisting}[language=bash, caption={Bash command to start the pattern4j design pattern analysis in headless mode}]
+            java -Xms32m -Xmx512m -jar ./tools/pattern4.jar
+              -target "./caffeine/build/classes/java/main"
+              -output "./results/out.xml"
 \end{lstlisting}
 
 \noindent The tool will analyze the \texttt{class} files present in the target directory and return an XML file containing the detected design patterns and their locations in the code. It is also possible to start the GUI version of the tool by simply removing the \texttt{target} and \texttt{output} flags.
