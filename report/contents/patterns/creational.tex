@@ -41,6 +41,7 @@ Policy<K, V> policy();
 \paragraph{Other instances} the tool detected the usage of the \textit{Factory Method} pattern in two other instances of the \textit{Caffeine} library: the \textit{AsyncLocalCache::synchronous} method and the \textit{StripedBuffer::create} methods. These instances are not presented in this report as they are not particularly interesting as they are similar to the ones presented above.
 
 \subsubsection{Singleton}
+\label{sec:singleton}
 
 The \textit{Singleton} pattern is used to ensure that a particular class has only one instance. To do so, the class usually defines a private constructor in order to hide the constructor from other classes, and a static method to serve as an entry point to the instance: the method will create the instance if it does not exist, or return the existing instance if it does. The tool detected the usage of the \textit{Singleton} pattern in the \textit{Caffeine} library in 9 different instances. Since all instances are essentially the same, I will present the \textit{Weighter} interface as an example of the pattern usage.
 

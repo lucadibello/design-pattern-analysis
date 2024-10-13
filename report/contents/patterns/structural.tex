@@ -1,3 +1,41 @@
 \subsubsection{Adapter}
 
-This structural design pattern allows to \textit{adapt} the interface of a particular object to satisfy the requirements of a client. The tool detected the usage of the \textit{Adapter} design pattern in the \textit{Caffeine} library in the \textit{BoundedLocalCache} class. The \textit{BoundedLocalCache} class is a concrete implementation of the \textit{LocalCache}
+This structural design pattern allows to \textit{adapt} the interface of a particular class into the interface expected by the client. The tool detected the usage of the \textit{Adapter} design pattern in 
+
+\textcolor{red}{\textit{TO FINISH BROOOO}}
+
+\subsubsection{Decorator}
+
+This structural design pattern allows to add dynamically new functionalities to an object, without altering its definition. The tool detected the usage of the \textit{Decorator} design pattern in 3 different instances: \texttt{GuardedScheduler} (decorator of \texttt{Scheduler}), \texttt{BoundedWeigher} (decorator of \texttt{Weigher}) and \texttt{GuardedStatsCounter} (decorator of \texttt{StatsCounter}). Since this design pattern is implemented in a similar way in all found instances, I will only present the \texttt{Weigher}-\texttt{BoundedWeigher} pair as an example as it is the most idiomatic across the codebase.
+
+As we have seen in the previous section (refer to subsection \ref{sec:singleton}), the \texttt{Weigher} interface offers two static methods for the creation of \texttt{Weigher} objects: \texttt{singletonWeigher} and \texttt{boundedWeigher}. The \texttt{BoundedWeigher} class is a concrete implementation of the \texttt{Weigher} interface that decorates another \texttt{Weigher} object by adding an additional method \texttt{writeReplace()} to the object. The \texttt{writeReplace()} method is used to replace the decorated object with the \texttt{BoundedWeigher} object when the object is serialized. The \texttt{BoundedWeigher} class is defined as follows:
+
+\begin{lstlisting}[language=Java]
+final class BoundedWeigher<K, V> implements Weigher<K, V>, Serializable {
+  private static final long serialVersionUID = 1;
+
+  @SuppressWarnings("serial")
+  final Weigher<? super K, ? super V> delegate;
+
+  BoundedWeigher(Weigher<? super K, ? super V> delegate) {
+    this.delegate = requireNonNull(delegate);
+  }
+
+  @Override
+  public int weigh(K key, V value) {
+    int weight = delegate.weigh(key, value);
+    requireArgument(weight >= 0);
+    return weight;
+  }
+
+  Object writeReplace() {
+    return delegate;
+  }
+}
+\end{lstlisting}
+
+By implementing the \texttt{Weigher} interface, \texttt{BoundedWeigher} must implement the same methods as the \textit{delegate} object passed to the constructor, and by encapsulating the \textit{delegate} object function calls, the \texttt{BoundedWeigher} class is able to extend the default behavior of the object while maintaining the same interface. This is the essence of the \textit{Decorator} pattern.
+
+\subsubsection{Bridge}
+
+
