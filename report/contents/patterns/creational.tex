@@ -1,0 +1,71 @@
+\subsubsection{Factory Method}
+
+The tool detected the usage of the \textit{Factory Method} design pattern in several instances of the \textit{Caffeine} library. This pattern is used to encapsulate the creation of objects, allowing subclasses to alter the type of objects that will be created. In the following paragraph, each instance will be briefly presented and analyzed. Due to the large amount of instances found, I will only present 3 out of the 5 instances found in the codebase, as they are representative of the pattern usage or they are particularly interesting.
+
+\paragraph{NodeFactory interface} this class represents a factory implementation (defined in an interface with some default implementations) designed to create factory instances for different types of cache nodes. In order to select a particular factory implementation, the \textit{NodeFactory} interface defines two factory methods that return new instances of the factory based on the input parameters. The methods signatures are defined as follows:
+
+\begin{lstlisting}[language=Java]
+static NodeFactory<Object, Object> newFactory(String className)
+static <K, V> NodeFactory<K, V> newFactory(Caffeine<K, V> builder, boolean isAsync)
+\end{lstlisting}
+
+\noindent The interface also defines two factory methods that return new instances of the cache nodes. The methods signatures are defined as follows:
+
+\begin{lstlisting}[language=Java]
+Node<K, V> newNode(K key, ReferenceQueue<K> ref, V value,
+  ReferenceQueue<V> valueReferenceQueue, int weight, long now);
+Node<K, V> newNode(Object keyReference, V value,
+  ReferenceQueue<V> valueReferenceQueue, int weight, long now);
+\end{lstlisting}
+
+\noindent \textit{Caffeine} defines a specialized \textit{NodeFactory} interface named \textit{Interned}. The \textit{Interned} factories are used for creating interned nodes, which are nodes that are unique in the cache (only one instance of a particular node can exist at a time in the cache). Node factories, and via polymorphism \textit{Interned} factories, are used by the \textit{BoundedLocalCache} to create new nodes for the cache.
+
+\paragraph{LinkedDeque interface} this interface specify a linked list implementation of a deque. The interface apart from defining the methods to manage the deque, it also defines two abstract factory methods that return new instances of the \textit{PeekingIterator} interface. The methods are defined as follows:
+
+\begin{lstlisting}
+  PeekingIterator<E> iterator();
+  PeekingIterator<E> descendingIterator();
+\end{lstlisting}
+
+\noindent Concrete implementations will need to implement these methods and return new custom iterators: since the \textit{PeekingIterator} is an interface, the \textit{Factory Method} pattern is used to encapsulate multiple possible implementations of the iterator.
+
+\paragraph{LocalAsyncCache interface} this interface defines two abstract methods to force concrete implementations to define getters for the cache and the policy. The methods are defined as follows:
+
+\begin{lstlisting}
+LocalCache<K, CompletableFuture<V>> cache();
+Policy<K, V> policy();
+\end{lstlisting}
+
+\noindent These methods would return instances of the \textit{LocalCache} and \textit{Policy} interfaces, respectively. This interface is used by the abstract class \texttt{AbstractLinkedDeque}, but the two methods above are left abstract to force inheritors to define them. Since inheritors are able via polymorphism to return different implementations of the cache and policy, the \textit{Factory Method} pattern is used.
+
+\paragraph{Other instances} the tool detected the usage of the \textit{Factory Method} pattern in two other instances of the \textit{Caffeine} library: the \textit{AsyncLocalCache::synchronous} method and the \textit{StripedBuffer::create} methods. These instances are not presented in this report as they are not particularly interesting as they are similar to the ones presented above.
+
+\subsubsection{Singleton}
+
+The \textit{Singleton} pattern is used to ensure that a particular class has only one instance. To do so, the class usually defines a private constructor in order to hide the constructor from other classes, and a static method to serve as an entry point to the instance: the method will create the instance if it does not exist, or return the existing instance if it does. The tool detected the usage of the \textit{Singleton} pattern in the \textit{Caffeine} library in 9 different instances. Since all instances are essentially the same, I will present the \textit{Weighter} interface as an example of the pattern usage.
+
+In this particular case, in order to prevent the creation of multiple \texttt{Weigher<K, V>} instances, the \textit{Caffeine} library implements the \textit{Singleton} pattern by leveraging a common trick involving \textit{enum} types. The \textit{SingletonWeighter} enum implements the \textit{Weigher} interface, and defines a single instance of the enum named \texttt{INSTANCE}. Thanks to the nature of \textit{enum} types, the \texttt{INSTANCE} instance is guaranteed to be unique. The \textit{Weigher} interface provides a static method to return the singleton instance of the \texttt{SingletonWeigher} enum. The method signature is defined as follows:
+
+\begin{lstlisting}[language=Java]
+enum SingletonWeigher implements Weigher<Object, Object> {
+  INSTANCE;
+  ...
+}
+
+static <K, V> Weigher<K, V> singletonWeigher() {
+  @SuppressWarnings("unchecked")
+  var instance = (Weigher<K, V>) SingletonWeigher.INSTANCE;
+  return instance;
+}
+\end{lstlisting}
+
+\noindent This kind of \textit{Singleton} pattern implementation is found in all 9 instances detected by the tool. The other instances are not presented in this report as they would not add any value to the analysis.
+
+I decided to present the \textit{Weighter} interface as an example of the \textit{Singleton} pattern usage, as it also exhibit some characteristics of the \textit{Factory Method} pattern, offering custom methods to encapsulate the creation of different kinds of \textit{Weighter} objects. The method signatures are defined as follows:
+
+\begin{lstlisting}[language=Java]
+static <K, V> Weigher<K, V> singletonWeigher() { ... }
+static <K, V> Weigher<K, V> boundedWeigher(Weigher<K, V> w) { }
+\end{lstlisting}
+
+\noindent However, in order to be a correct factory method implementation, subclasses should be able to implement the \textit{Weigher} interface and define their own custom implementations of the factory methods presented above, allowing to return different instances of the \textit{Weigher} interface. This is not possible as both methods are \textit{static}, thus they cannot be overridden by subclasses.
