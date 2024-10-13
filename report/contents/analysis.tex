@@ -1,43 +1,68 @@
 \section{Analysis of results}
 
-After running the design pattern analysis tool on the entire \texttt{com.github.benmanes.caffeine.cache} package the tool was able to find the usage of seven design patterns. The detected patterns are the following (divided by category):
-
-\begin{enumerate}
-  \item \textbf{Creational Design Patterns}
-  \begin{enumerate}
-    \item \textit{Factory Method}: 5 instances found
-    \item \textit{Singleton}: 9 instances
-  \end{enumerate}
-  \item \textbf{Structural Design Patterns}
-  \begin{enumerate}
-    \item \textit{Adapter}: 6 instances
-    \item \textit{Decorator}: 3 instances
-    \item \textit{Bridge}: 4 instances
-  \end{enumerate}
-  \item \textbf{Behavioral Design Patterns}
-  \begin{enumerate}
-    \item \textit{State}: 8 instances
-    \item \textit{Template}: 7 instances
-  \end{enumerate}
-\end{enumerate}
+After running the design pattern analysis tool on the entire \texttt{com.github.benmanes.caffeine.cache} package the tool was able to find the usage of seven design patterns. The detected patterns are the following (divided by category).
 
 \subsection{Creational Design Patterns}
 
 \subsubsection{Factory Method}
 
-The tool detected the usage of the \textit{Factory Method} design pattern in the following classes/interfaces:
+The tool detected the usage of the \textit{Factory Method} design pattern in the following classes/interfaces. Factory Method is a creational design pattern that provides an interface for creating objects in a superclass, but allows subclasses to alter the type of objects that will be created.
 
-\begin{itemize}
-  \item \texttt{NodeFactory}: Interface with several default implementations. 
-  \item \texttt{LinkedDequeue}
-  \item \texttt{LocalAsyncCache}
-  \item \texttt{AsyncLoadingCache}
-  \item \texttt{StripedBuffer}
-\end{itemize}
+In the following paragraphs, we will describe briefly each of them.
+
+\paragraph{NodeFactory interface} this class represents an abstract factory implementation (defined in an interface with some default implementations) designed to create factory instances for different types of nodes. The interface defines a static factory method \texttt{newFactory} that returns a new instance of a particular factory, which implementation is defined by the parameter \textit{className} of type \texttt{String}. The interface also defines another static factory method \texttt{newFactory} that returns a new instance of a particular factory, which implementation is defined as a parameter \textit{builder} of type \texttt{Caffeine<K, V>} (builder pattern, refer to next subsection for more details).
+
+\begin{lstlisting}[language=Java]
+static NodeFactory<Object, Object> newFactory(String className)
+static <K, V> NodeFactory<K, V> newFactory(Caffeine<K, V> builder, boolean isAsync)
+\end{lstlisting}
+
+\noindent Each factory implementation is responsible for creating a particular type of node. The following are the factory methods that each factory implementation must implement:
+
+\begin{lstlisting}[language=Java]
+Node<K, V> newNode(K key, ReferenceQueue<K> keyReferenceQueue, V value, ReferenceQueue<V> valueReferenceQueue, int weight, long now);
+Node<K, V> newNode(Object keyReference, V value, ReferenceQueue<V> valueReferenceQueue, int weight, long now);
+\end{lstlisting}
+
+\noindent \textit{Caffeine} defines a \textit{Interned} abstract factory which extends the \textit{NodeFactory} interface. The \textit{Interned} factories are used for creating interned nodes, which are nodes that are unique in the cache (only one instance of a particular node can exist at a time in the cache).
+
+\noindent The \textit{NodeFactory} (which via polymorphism can be an \textit{Interned} factory) is used by the \textit{BoundedLocalCache} to create new nodes for the cache.
+
+\paragraph{LinkedDeque interface} this interface represents a simple linked list implementation of a deque. The interface defines also \texttt{iterator} and \texttt{descendingIterator} methods that return new instances of \texttt{PeekingIterator<E>} for the linked list. They are defined as follows:
+
+\begin{lstlisting}
+  @Override
+  PeekingIterator<E> iterator();
+
+  @Override
+  PeekingIterator<E> descendingIterator();
+\end{lstlisting}
+
+\noindent These two methods are effectively factory methods as they must be implemented by any specialized \textit{LinkedList} implementations in order to encapsulate the creation of the related \textit{PeekingIterator} instances.
+
+\paragraph{LocalAsyncCache interface} this interface comprehends two factory methods that return new instances of internal data structures used by the cache. The methods are defined as follows:
+
+\begin{lstlisting}
+/** Returns the backing {@link LocalCache} data store. */
+LocalCache<K, CompletableFuture<V>> cache();
+
+/** Returns the policy supported by this implementation and its configuration. */
+Policy<K, V> policy();
+\end{lstlisting}
+
+\noindent For the same reasons as the previous example, these methods are considered valid factory methods.
+
+\paragraph{AsyncLoadingCache interface} this interface defines a factory method \texttt{synchronous} that returns a new instance of a \texttt{LoadingCache<K, V>}, representing a thread-safe view of the cache. This method represents a factory method as it encapsulates the creation of a new instance of a \texttt{LoadingCache}.
+
+\paragraph{StripedBuffer abstract class} as reported in the JavaDoc, lazily-initialized table of atomically updated buffers. In order to create a new buffer instance, the class defines an abstract factory method defined as follows:
+
+\begin{lstlisting}
+  protected abstract Buffer<E> create(E e);
+\end{lstlisting}
 
 \subsubsection{Singleton}
 
-\subsection{Creational Design Patterns} 
+\subsection{Creational Design Patterns}
 
 \subsubsection{Adapter}
 
