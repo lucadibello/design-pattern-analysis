@@ -34,9 +34,9 @@ In order to learn more about design patterns, I decided to look for a project th
 
 	      Initially, I started this assignment with this project in mind but, unfortunately, I encountered major problems during the compilation of the project which made me discard it. The project was using the \texttt{Gradle} build system but the build process terminated with an unexpected error that I was not able to debug.
 
-      \item \href{https://github.com/ben-manes/caffeine}{benmanes/caffeine}: A high-performance caching library for Java used in many famous projects such as \textit{Apache Kafka}, \textit{Cassandra}, \textit{Neo4J} and many others. It has 15.8k starts, 1.6k forks and has about 100k lines of Java code. This project unfortunately, representing a mature and well-maintained Java library (as on the \displaydate{projectdate}) only had 4 open issues on GitHub.
+	\item \href{https://github.com/ben-manes/caffeine}{benmanes/caffeine}: A high-performance caching library for Java used in many famous projects such as \textit{Apache Kafka}, \textit{Cassandra}, \textit{Neo4J} and many others. It has 15.8k starts, 1.6k forks and has about 100k lines of Java code. This project unfortunately, representing a mature and well-maintained Java library (as on the \displaydate{projectdate}) only had 4 open issues on GitHub.
 
-    This project completely aligns with the project requirements and my personal objectives for this assignment. For these reasons, I decided to use this project for the assignment. Additionally, the project uses the \texttt{Gradle} build system, which I am more familiar with. I was able to build the project without any complication, refer to \autoref{sec:building} for more details.
+	      This project completely aligns with the project requirements and my personal objectives for this assignment. For these reasons, I decided to use this project for the assignment. Additionally, the project uses the \texttt{Gradle} build system, which I am more familiar with. I was able to build the project without any complication, refer to \autoref{sec:building} for more details.
 
 \end{itemize}
 
@@ -46,29 +46,26 @@ This project, apart from offering an high-performance caching library, offers tw
 
 \begin{itemize}
 	\item \texttt{com.github.benmanes.caffeine.cache}: Main package of the library, contains the core classes of the caching library.
-  \item \texttt{com.github.benmanes.caffeine.cache.guava}: Contains classes that provide compatibility with the Google Guava caching library. \cite{caffeine:guava}
-  \item \texttt{com.github.benmanes.caffeine.cache.jcache}: Adapter for the \textit{JSR-107 JCache} caching API. \cite{caffeine:jcache}
+	\item \texttt{com.github.benmanes.caffeine.cache.guava}: Contains classes that provide compatibility with the Google Guava caching library. \cite{caffeine:guava}
+	\item \texttt{com.github.benmanes.caffeine.cache.jcache}: Adapter for the \textit{JSR-107 JCache} caching API. \cite{caffeine:jcache}
 \end{itemize}
 
-In this assignment, I will consider only \texttt{com.github.benmanes.caffeine.cache} package for the design pattern analysis along with the test code.
+\noindent In this assignment, I will consider only \texttt{com.github.benmanes.caffeine.cache} package for the design pattern analysis along with the test code.
 
-\subsection{Building and analyzing Java bytecode}
+\subsection{Building and analyzing resulting bytecode}
 \label{sec:building}
 
-The project can be easily built using the provided \textit{Gradle Wrapper} script \texttt{gradlew}. This script will download the required version of \textit{Gradle}, configure the dependencies and build the project. To do so, the following command has been used:
+The project can be easily built using the provided \textit{Gradle Wrapper} script \texttt{gradlew}. This script will download the required version of \textit{Gradle}, configure the project, start the build process. To do so, the following command has been used:
 
 \begin{lstlisting}[language=bash, caption={Building the Caffeine project with Gradle}]
               cd caffeine && ./gradlew build -x test -x javadoc
 \end{lstlisting}
 
-\noindent The additional flags \texttt{-x test} and \texttt{-x javadoc} are used to skip the execution of the tests and the generation of the documentation, respectively. The two steps are quite time-consuming and would not add any value to this report. For these reasons, the two steps have been skipped.
+\noindent The additional flags \texttt{-x test} and \texttt{-x javadoc} are used to skip the execution of the tests and the generation of the documentation, respectively. The two steps are quite time-consuming and would not add any value to the report. For these reasons, the two steps have been disabled.
 
-The output bytecode we are going to analyze is located in these two directories:
+In this report we are going to analyze the design patterns used in the core library of the project, avoiding the analysis of the Google Guava and JCache adapters. The compiled classes of the project are located in the directory \texttt{caffeine/build/classes/java/main}.
 
-\begin{itemize}
-  \item \texttt{caffeine/build/classes/java/main}: Compiled caching library.
-  \item \texttt{caffeine/build/classes/java/main}: Compiled tests of the project.
-\end{itemize}
+\pagebreak
 
 \noindent In order to start the design pattern analysis tool \texttt{pattern4j} in headless mode, the following command can be used:
 
