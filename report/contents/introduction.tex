@@ -63,19 +63,19 @@ The project can be easily built using the provided \textit{Gradle Wrapper} scrip
 
 \noindent The additional flags \texttt{-x test} and \texttt{-x javadoc} are used to skip the execution of the tests and the generation of the documentation, respectively. The two steps are quite time-consuming and would not add any value to the report. For these reasons, the two steps have been disabled.
 
-In this report we are going to analyze the design patterns used in the core library of the project, avoiding the analysis of the Google Guava and JCache adapters. The compiled classes of the project are located in the directory \texttt{caffeine/build/classes/java/main}.
+In this report we are going to analyze the design patterns used in the core library of the project, avoiding the analysis of the Google Guava and JCache adapters. The compiled classes are located in the directory \texttt{caffeine/build/classes/java/main}.
 
 \pagebreak
 
 \noindent In order to start the design pattern analysis tool \texttt{pattern4j} in headless mode, the following command can be used:
 
 \begin{lstlisting}[language=bash, caption={Bash command to start the pattern4j design pattern analysis in headless mode}]
-            java -Xms32m -Xmx512m -jar ./tools/pattern4.jar
-              -target "./caffeine/build/classes/java/main"
+            java -Xms32m -Xmx512m -jar ./tools/pattern4.jar \
+              -target "./caffeine/build/classes/java/main" \
               -output "./results/out.xml"
 \end{lstlisting}
 
 \noindent The tool will analyze the \texttt{class} files present in the target directory and return an XML file containing the detected design patterns and their locations in the code. It is also possible to start the GUI version of the tool by simply removing the \texttt{target} and \texttt{output} flags.
 
-To streamline both building and analysis processes, I created an highly customizable (currently configured with MacOS with Java 21) Makefile with useful goals to build and analyze the project. The Makefile can be found in the root of the repository.
+To streamline both building and analysis processes, I created a Makefile to build the project and start the design pattern analysis tool. The Makefile contains the following targets: \texttt{build}, \texttt{clean}, \texttt{analyze}, \texttt{analyze-gui}.
 
