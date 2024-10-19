@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \usepackage{amsmath,amssymb}
 \usepackage{bm}
+\usepackage{xcolor}
 \usepackage[pdftex,bookmarks,colorlinks,breaklinks]{hyperref}
 \hypersetup{linkcolor=black, citecolor=black, filecolor=black, linktocpage}
 \usepackage{memhfixc}
@@ -17,15 +18,31 @@
 \addbibresource{references.bib}
 \usepackage{datetime}
 
-% listings settings for bash
+% Make colored snippets colored for Bash
 \lstset{
-    language=bash,            % Specify the language
-    breaklines=true,           % Enable line breaking
-    captionpos=b,              % Caption position at the bottom
-    basicstyle=\ttfamily,      % Use monospaced font
-    literate={-}{-}1           % Ensure dashes render correctly
+	language=bash,            % Specify the language
+	breaklines=true,           % Enable line breaking
+	captionpos=b,              % Caption position at the bottom
+	basicstyle=\ttfamily,      % Use monospaced font
+	literate={-}{-}1           % Ensure dashes render correctly
+}
+
+% Make code snippets colored for Java
+\lstset{
+	language=java,
+	tabsize = 4,
+	showstringspaces = false,
+	numbers = left,
+	commentstyle = \color{green},
+	keywordstyle = \color{blue},
+	stringstyle = \color{red},
+	rulecolor = \color{black},
+	basicstyle = \small \ttfamily ,
+	breaklines = true,
+	numberstyle = \tiny,
 }
 
 % Define some useful dates
 \newdate{projectdate}{12}{10}{2024}
 \newdate{today}{\day}{\month}{\year}
+
