@@ -1,26 +1,42 @@
 \subsubsection{Factory Method}
 
-The tool detected the usage of the \textit{Factory Method} design pattern in several instances of the \textit{Caffeine} library. This pattern is used to encapsulate the creation of objects, allowing subclasses to alter the type of objects that will be created. In the following paragraph, each instance will be briefly presented and analyzed. Due to the large amount of instances found, I will only present 3 out of the 5 instances found in the codebase, as they are representative of the pattern usage or they are particularly interesting.
+The tool detected the usage of the \textit{Factory Method} design pattern in 5 different instances. This pattern is used to encapsulate the creation of objects, allowing subclasses to alter the type of objects that will be created. In the following paragraph, each instance will be briefly presented and analyzed. Due to the large amount of instances found, only 3 out of the 5 instances will be presented as they are the most representative of the pattern usage or showcase interesting implementations of the pattern.
 
-\paragraph{NodeFactory interface} this class represents a factory implementation (defined in an interface with some default implementations) designed to create factory instances for different types of cache nodes. In order to select a particular factory implementation, the \textit{NodeFactory} interface defines two factory methods that return new instances of the factory based on the input parameters. The methods signatures are defined as follows:
+\paragraph{NodeFactory interface} This interface represents a particular implementation of the \textit{Factory Method} pattern. The interface defines a two static constructor methods \texttt{newFactory} to create new \texttt{NodeFactory} instances. The method signatures are defined in \autoref{lst:nodefactory}.
 
-\begin{lstlisting}[language=Java]
+\begin{lstlisting}[language=Java, caption={NodeFactory interface static constructor methods}, captionpos=b, label={lst:nodefactory}]
 static NodeFactory<Object, Object> newFactory(String className)
 static <K, V> NodeFactory<K, V> newFactory(Caffeine<K, V> builder, boolean isAsync)
 \end{lstlisting}
 
-\noindent The interface also defines two factory methods that return new instances of the cache nodes. The methods signatures are defined as follows:
+\noindent These two static constructor methods leverage the \texttt{Singleton} design pattern in order to provide a single instance of the \texttt{NodeFactory} per className: if the \texttt{newFactory} method is called with the same \texttt{className} parameter (either explictly passed as parameter or embedded in the \texttt{builder} object), the same instance of the \texttt{NodeFactory} will be returned. To keep track of different instances, both methods access internally a static \texttt{ConcurrentMap}, which pairs the provided \texttt{className} with the \texttt{NodeFactory} instance: if the \texttt{className} is already present in the map, the method will simply return the instance, otherwise it will create a new instance, add it to the map and return it. The code responsible for this behavior is presented in \autoref{lst:nodefactorysingleton}.
 
-\begin{lstlisting}[language=Java]
+It is important to highlight that the design pattern scanner, probably due to the complexity of the implementation, did not detect the this particular usage of the \textit{Singleton} design pattern.
+
+\begin{lstlisting}[language=Java, caption={NodeFactory singleton design pattern implementation using a static \texttt{ConcurrentMap} instance}, captionpos=b, label={lst:nodefactorysingleton}]
+    var factory = FACTORIES.get(className);
+    if (factory == null) {
+      factory = FACTORIES.computeIfAbsent(
+        className, NodeFactory::newFactory
+      );
+    }
+    return (NodeFactory<K, V>) factory;
+\end{lstlisting}
+
+\noindent The \texttt{NodeFactory} interface two abstract factory methods to create new cache nodes (\texttt{Node} objects) of different types. The method signatures are defined in \autoref{lst:nodefactorymethods}.
+
+\begin{lstlisting}[language=Java, caption={NodeFactory abstract factory methods to create \texttt{Node} objects}, captionpos=b, label={lst:nodefactorymethods}]
 Node<K, V> newNode(K key, ReferenceQueue<K> ref, V value,
   ReferenceQueue<V> valueReferenceQueue, int weight, long now);
 Node<K, V> newNode(Object keyReference, V value,
   ReferenceQueue<V> valueReferenceQueue, int weight, long now);
 \end{lstlisting}
 
-\noindent \textit{Caffeine} defines a specialized \textit{NodeFactory} interface named \textit{Interned}. The \textit{Interned} factories are used for creating interned nodes, which are nodes that are unique in the cache (only one instance of a particular node can exist at a time in the cache). Node factories, and via polymorphism \textit{Interned} factories, are used by the \textit{BoundedLocalCache} to create new nodes for the cache.
+\noindent Since both methods are \texttt{abstract}, each concrete implementation of the \texttt{NodeFactory} interface must define its own implementation of these methods, allowing to return different instances of the \texttt{Node} interface. This is a clear example of the \textit{Factory Method} pattern usage.
 
-\paragraph{LinkedDeque interface} this interface specify a linked list implementation of a deque. The interface apart from defining the methods to manage the deque, it also defines two abstract factory methods that return new instances of the \textit{PeekingIterator} interface. The methods are defined as follows:
+As example, the \texttt{BoundedLocalCache} cache internally use a \texttt{NodeFactory} factory to create new cache nodes. This allows to easily switch between different implementations of the \texttt{Node} interface, depending on the cache type.
+
+\paragraph{LinkedDeque interface} This interface specify a linked list implementation of a deque. The interface apart from defining the methods to manage the deque, it also defines two abstract factory methods that return new instances of the \textit{PeekingIterator} interface. The methods are defined as follows:
 
 \begin{lstlisting}
   PeekingIterator<E> iterator();
@@ -29,16 +45,7 @@ Node<K, V> newNode(Object keyReference, V value,
 
 \noindent Concrete implementations will need to implement these methods and return new custom iterators: since the \textit{PeekingIterator} is an interface, the \textit{Factory Method} pattern is used to encapsulate multiple possible implementations of the iterator.
 
-\paragraph{LocalAsyncCache interface} this interface defines two abstract methods to force concrete implementations to define getters for the cache and the policy. The methods are defined as follows:
-
-\begin{lstlisting}
-LocalCache<K, CompletableFuture<V>> cache();
-Policy<K, V> policy();
-\end{lstlisting}
-
-\noindent These methods would return instances of the \textit{LocalCache} and \textit{Policy} interfaces, respectively. This interface is used by the abstract class \texttt{AbstractLinkedDeque}, but the two methods above are left abstract to force inheritors to define them. Since inheritors are able via polymorphism to return different implementations of the cache and policy, the \textit{Factory Method} pattern is used.
-
-\paragraph{Other instances} the tool detected the usage of the \textit{Factory Method} pattern in two other instances of the \textit{Caffeine} library: the \textit{AsyncLocalCache::synchronous} method and the \textit{StripedBuffer::create} methods. These instances are not presented in this report as they are not particularly interesting as they are similar to the ones presented above.
+\paragraph{Other instances} The tool detected the usage of the \textit{Factory Method} pattern in the following three other locations: \textit{AsyncLocalCache::synchronous}, \textit{AsyncLocalCache::policy} and  \textit{StripedBuffer::create(E)}. These are all valid implementations of the design pattern, but are not particularly interesting as they are similar to the ones presented above.
 
 \subsubsection{Singleton}
 \label{sec:singleton}
