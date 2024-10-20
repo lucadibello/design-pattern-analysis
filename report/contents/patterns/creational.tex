@@ -1,20 +1,20 @@
 \subsubsection{Factory Method}
 \label{par:nodefactory}
 
-The tool detected the usage of the \textit{Factory Method} design pattern in 5 different instances. This pattern is used to encapsulate the creation of objects, allowing subclasses to alter the type of objects that will be created. In this section will be presented only the \texttt{NodeFactory} instance as it represents the most complete and interesting example of the pattern usage.
+The tool detected the usage of the \textit{Factory Method} design pattern in 5 different instances. This pattern is used to encapsulate the creation of objects, allowing subclasses to return different instances of the same type using polymorphism. The pattern is used in the \textit{Caffeine} library to create particular configurations of data structures, such as synchronous or asynchronous caches, or to create particular types of cache node objects.
 
-The \texttt{NodeFactory} interface represents a particular implementation of the \textit{Factory Method} pattern. The interface defines a two static constructor methods \texttt{newFactory} to create new \texttt{NodeFactory} instances. The method signatures are defined in \autoref{lst:nodefactory}.
+For example, the \texttt{NodeFactory} interface represents a particular implementation of the \textit{Factory Method} pattern. It defines a two static constructor methods \texttt{newFactory} to create new \texttt{NodeFactory} instances based on a specified class name. The method signatures are defined in \autoref{lst:nodefactory}.
 
-\begin{lstlisting}[language=Java, caption={NodeFactory interface static constructor methods}, captionpos=b, label={lst:nodefactory}]
+\begin{lstlisting}[language=Java, caption={\texttt{NodeFactory} interface static constructor methods}, captionpos=b, label={lst:nodefactory}]
 static NodeFactory<Object, Object> newFactory(String className)
 static <K, V> NodeFactory<K, V> newFactory(Caffeine<K, V> builder, boolean isAsync)
 \end{lstlisting}
 
-\noindent These two static constructor methods leverage the \texttt{Singleton} design pattern in order to provide a single instance of the \texttt{NodeFactory} per class name: if the \texttt{newFactory} method is called with the same \texttt{className} parameter (either explictly passed as parameter or embedded in the \texttt{builder} object), the same instance of the \texttt{NodeFactory} will be returned. To keep track of different instances, both methods access internally a static \texttt{ConcurrentMap}, which pairs the provided \texttt{className} with the \texttt{NodeFactory} instance: if the \texttt{className} is already present in the map, the method will simply return the instance, otherwise it will create a new instance, add it to the map and return it. The code responsible for this behavior is presented in \autoref{lst:nodefactorysingleton}.
+\noindent These two static constructors leverage the \textit{Singleton} design pattern in order to provide a single instance of the \texttt{NodeFactory} per class name. This behavior is achieved by using a static \texttt{ConcurrentMap} to store the instances of the \texttt{NodeFactory} class linked to the class name (passed explicitly via parameter, or embedded in the \texttt{builder} object). This way, the method can simply return the instance if it is already present in the map, or create a new one if it does not exist yet. The code responsible for this behavior is presented in \autoref{lst:nodefactorysingleton}.
 
-It is important to highlight that the design pattern scanner, probably due to the complexity of the implementation, did not detect the this particular usage of the \textit{Singleton} design pattern.
+It is important to highlight that the design pattern scanner, probably due to the complexity of the implementation, did not detect the usage of the \textit{Singleton} design pattern in the \texttt{NodeFactory} interface. This is a clear example of the limitations of the tool, as the pattern is clearly implemented in the codebase.
 
-\begin{lstlisting}[language=Java, caption={NodeFactory singleton design pattern implementation using a static \texttt{ConcurrentMap} instance}, captionpos=b, label={lst:nodefactorysingleton}]
+\begin{lstlisting}[language=Java, caption={\texttt{NodeFactory} \textit{Singleton} design pattern implementation using a static \texttt{ConcurrentMap} instance}, captionpos=b, label={lst:nodefactorysingleton}]
     var factory = FACTORIES.get(className);
     if (factory == null) {
       factory = FACTORIES.computeIfAbsent(
@@ -24,9 +24,9 @@ It is important to highlight that the design pattern scanner, probably due to th
     return (NodeFactory<K, V>) factory;
 \end{lstlisting}
 
-\noindent The \texttt{NodeFactory} interface two abstract factory methods to create new cache nodes (\texttt{Node} objects) of different types. The method signatures are defined in \autoref{lst:nodefactorymethods}.
+\noindent Furthermore, the \texttt{NodeFactory} interface also defines two abstract factory methods to create new cache nodes (\texttt{Node} objects) of different types. The method signatures are defined in \autoref{lst:nodefactorymethods}.
 
-\begin{lstlisting}[language=Java, caption={NodeFactory abstract factory methods to create \texttt{Node} objects}, captionpos=b, label={lst:nodefactorymethods}]
+\begin{lstlisting}[language=Java, caption={\texttt{NodeFactory} abstract factory methods to create \texttt{Node<K,V>} objects}, captionpos=b, label={lst:nodefactorymethods}]
 Node<K, V> newNode(K key, ReferenceQueue<K> ref, V value,
   ReferenceQueue<V> valueReferenceQueue, int weight, long now);
 Node<K, V> newNode(Object keyReference, V value,
@@ -44,11 +44,12 @@ The \textit{Singleton} pattern is used to ensure that a particular class has onl
 
 The tool detected the usage of the \textit{Singleton} pattern in the \textit{Caffeine} library in 9 different instances. Since in all detected instances the pattern is implemented in similar ways, I will present only one instance where the pattern is used in a more interesting way.
 
-\paragraph{Weigher interface and SingletonWeighter enum} The \textit{Weigher} interface is used to calculate the weight of a cache entry. In order to prevent the creation of multiple \texttt{Weigher<K, V>} instances, the \textit{Caffeine} library implements the \textit{Singleton} pattern by leveraging a very common Java trick involving an \textit{enum} type named \texttt{SingletonWeighter}. The \textit{Singleton} enum is defined in \autoref{lst:singletonweigher}.
+The \textit{Weigher} interface is used to calculate the weight of a given cache node. In order to prevent the creation of multiple \texttt{Weigher<K, V>} instances, the \textit{Caffeine} library implements the \textit{Singleton} pattern by leveraging a very common Java trick involving an \textit{enum} type, which in this case is named \texttt{SingletonWeighter}. The enum definition is available in \autoref{lst:singletonweigher}.
 
 \begin{lstlisting}[language=Java, caption={\texttt{SingletonWeigher} enum definition}, captionpos=b, label={lst:singletonweigher}]
 enum SingletonWeigher implements Weigher<Object, Object> {
   INSTANCE;
+  // dummy weigh method
   @Override public int weigh(Object key, Object value) {
     return 1;
   }
@@ -57,7 +58,7 @@ enum SingletonWeigher implements Weigher<Object, Object> {
 
 \noindent The \textit{SingletonWeighter} enum implements the \textit{Weigher} interface, and defines a single entry named \texttt{INSTANCE}, which is of type \texttt{SingletonWeigher}. Since the \texttt{SingletonWeighter} enum implements the \texttt{Weigher} interface, the \texttt{INSTANCE} entry is also of type \texttt{Weigher<Object, Object>}, effectively making it a singleton instance of the \texttt{Weigher} interface. This is only possible due to the intrinsic nature of \textit{enum} types, where each entry is guaranteed to be unique and only instantiated once.
 
-In order to retrieve the singleton instance in a more concise way, the method \texttt{singletonWeigher} performs an unchecked cast to the \texttt{Weigher<K, V>} type, effectively returning the singleton instance:
+In order to retrieve the singleton instance in a more concise way, the \texttt{Weigher} interface offers a static \texttt{singletonWeigher()} utility method that simply reads the \texttt{INSTANCE} entry from the \texttt{SingletonWeigher} enum and performs an unchecked cast to the \texttt{Weigher<K, V>} type, effectively returning the singleton instance:
 
 \begin{lstlisting}[language=Java, caption={SingletonWeigher shorthand method to return the singleton instance using an unchecked cast}, captionpos=b, label={lst:singletonweigher}]
 static <K, V> Weigher<K, V> singletonWeigher() {
@@ -67,12 +68,12 @@ static <K, V> Weigher<K, V> singletonWeigher() {
 }
 \end{lstlisting}
 
-\noindent The report presents the \textit{Weighter} interface as an example of the \textit{Singleton} pattern usage, as it also exhibit some characteristics of the \textit{Factory Method} pattern, offering custom methods that encapsulate the creation of different kinds of \textit{Weighter} objects. The method signatures are defined in \autoref{lst:weigherfactorymethods}.
+\noindent Additonally, this interface exhibit also some characteristics of the \textit{Factory Method} pattern, offering custom methods that encapsulate the creation of different kinds of \textit{Weigher} objects. The method signatures are defined in \autoref{lst:weigherfactorymethods}.
 
-\begin{lstlisting}[language=Java, caption={Weigher interface factory methods}, captionpos=b, label={lst:weigherfactorymethods}]
-static <K, V> Weigher<K, V> singletonWeigher() { ... }
-static <K, V> Weigher<K, V> boundedWeigher(Weigher<K, V> w) { }
+\begin{lstlisting}[language=Java, caption={\texttt{Weigher} interface utility methods to create different kinds of \texttt{Weigher<K,V>}}, captionpos=b, label={lst:weigherfactorymethods}]
+static <K, V> Weigher<K, V> singletonWeigher()
+static <K, V> Weigher<K, V> boundedWeigher(Weigher<K, V> w)
 \end{lstlisting}
 
-\noindent However, in order to be a correct \textit{Factory Method} design pattern implementation, subclasses should be able to implement the \textit{Weigher} interface and define their own custom implementations of the factory methods presented above, allowing to return different instances of the \textit{Weigher} interface. This is not possible as both methods are \textit{static}, thus not allowing subclasses to alter the return type of the methods via inheritance as required by the design pattern.
+\noindent However, in order to be a correct \textit{Factory Method} design pattern implementation, subclasses should be able to implement the \textit{Weigher} interface and define their own custom implementations of the factory methods presented above, allowing them to leverage polymorphism in order to return different instances of the \textit{Weigher} interface. This is not possible as both methods are \textit{static}, thus not allowing subclasses to alter the return type of the methods via inheritance as required by the design pattern.
 

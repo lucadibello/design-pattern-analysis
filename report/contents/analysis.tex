@@ -1,13 +1,11 @@
 \section{Analysis of results}
 
-After running the design pattern analysis tool on the entire \texttt{com.github.benmanes.caffeine.cache} package, the tool was able to find the usage of seven design patterns. In this report we will analyze the most idiomatic usages of the design patterns found in the \textit{Caffeine} library.
-
-The following table summarizes the findings of the design pattern analysis tool:
+After running the design pattern analysis tool on the entire \texttt{com.github.benmanes.caffeine.cache} package, the tool was able to find the usage of seven design patterns. The following list summarizes the design patterns found in the library:
 
 \begin{itemize}
 	\item \textbf{Factory Method}: Detected in 5 different classes, with a total of 7 factory methods identified. In \textit{Caffeine} is is used to create particular configuration of data structures, such as synchronous or asynchronous caches, or to create a certain type of cache node.
 
-	\item \textbf{Singleton}: Found in 9 different classes, with a total of 9 singleton instances. Due to the versatility of the pattern, it has been used extensively in the library for various reasons. The analyzer unfortunately was not able to detect usage of this pattern in the \texttt{NodeFactory} interface (refer to \autoref{par:nodefactory} for more details)
+	\item \textbf{Singleton}: Found in 9 different classes, with a total of 9 singleton instances. Due to the versatility of the pattern, it has been used extensively in the library for various reasons. However, the analyzer was not able to detect usage of this pattern in the \texttt{NodeFactory} interface (refer to \autoref{par:nodefactory} for more details), hinting that is not reliable in certain complex cases.
 
 	\item \textbf{Adapter}: Detected in 6 different classes, with 6 adapter classes detected. This pattern allows the library to use internally the interface of a passed object to perform certain operations, while exposing a different interface to the client. For instance, \texttt{BoundedPolicy} adapts the functionality of a \texttt{BoundedLocalCache} object to perform certain operations on the cache, while exposing a \texttt{Policy} interface to the client.
 
@@ -23,8 +21,6 @@ The following table summarizes the findings of the design pattern analysis tool:
 
 \noindent Due to the size of the library, and the amount of design patterns detected, the report will only analyze the most interesing usages of the design patterns found. For each design pattern, the report will provide details on how the pattern is implemented and what value it brings to the architecture of the library.
 
-\textit{Note:} due to the limited amount of pages, it is impossible to analyze in detail every detected design pattern and its usage inside the library. For this reason, certain design patterns, where the usage is not interesting or where the scanner produced multiple false-positives, will not be analyzed in the following sections.
-
 \subsection{Creational Design Patterns}
 
 \input{./contents/patterns/creational}
@@ -33,29 +29,25 @@ The following table summarizes the findings of the design pattern analysis tool:
 
 \input{./contents/patterns/structural}
 
-\subsection{False Positives: State, Bridge and Template Method design patterns}
+\subsection{False Positives}
 \label{sec:false-positives}
 
-The scanner produces many false positives for the following \textit{State}, \textit{Bridge} and \textit{Template Method} design patterns.
+The scanner produces many false positives for the following \textit{State}, \textit{Bridge} and \textit{Template Method} design patterns. For example, the scanner detected the usage of the \textit{State} design pattern inside the \texttt{BoundedLocalCache}. This class implements a task-based approach to alter the state of the \textit{page replacement policy} for specific nodes. The class defines three kinds of task: \texttt{AddTask}, \texttt{UpdateTask} and \texttt{RemovalTask}. These task have a common structure: they all offer a single constructor method accepting a \texttt{Node<K, V>} object (subject on which the new policy will be applied) and they implement the \texttt{Runnable} interface. The \texttt{run} method (inherited from the \texttt{Runnable} interface) defines the behavior of the specific task. By extending the same interface, it is possible to store different kinds of task inside a common collection.
 
-For example, the scanner detected the usage of the \textit{State} design pattern inside the \texttt{BoundedLocalCache}. This class implements a task-based approach to alter the state of specific nodes inside the cache using a \textit{page replacement policy}. To update the page replacement policy, the class defines three types of task: \texttt{AddTask}, \texttt{UpdateTask} and \texttt{RemovalTask}. These task have a common structure, offering a single constructor accepting a \texttt{Node<K, V>} object, and implementing the \texttt{Runnable} interface. The \texttt{run} method of each task defines the behavior of that specific task.
+After further inspection, this structure represents the \textit{Command} design pattern, where each type of task represents a particular \textit{command} to alter the state of the cache \textit{page replacement policy}. This is also confirmed by the fact that after the creation of a specific task, the program appends it to a global buffer named \texttt{writeBuffer}. This buffer will then be used to pull tasks and execute them at specific times (i.e. after a write operation). This represents the essence of the \textit{Command} design pattern, and was detected as the \textit{State} design pattern probably due to the similar taxonomy.
 
-The scanner detected the usage of the \textit{State} design pattern since it detected that each task is modeling a specific state of the node object passed as reference. On the other hand, after further inspection, this structure represents perfectly the \textit{Command} design pattern: the task represents a particular request to alter the state of the node, and the \texttt{run} method is the actual command that will be executed on the node. Furthermore, after the creation of a specific task, the program appends it to a global buffer named \texttt{writeBuffer}. This buffer will then be used to pull tasks and execute them at specific times (i.e. after a write operation). This represents the essence of the \textit{Command} design pattern.
+Also the \textit{Bridge} design pattern was wrongly detected in several places across the codebase, probably due to the extensive use of interfaces and abstract classes that made the design pattern detection task more complex, reducing the accuracy of the results. Furthermore, a similar issue happened with the detection of the \textit{Template Method} design pattern. For example, the method \texttt{ExpandOrRetry} of the \texttt{StripedBuffer} class was flagged as \textit{Template Method}, even if was clearly a utility method as it was marked as \textit{final}. Since subclasses do not allow to alter the behavior of the method, confirms that the \textit{Template Method} design pattern is not used.
 
-The \textit{Bridge} design pattern on the other hand was detected in many places across the codebase, where it found
-
-I was expecting the scanner to produce false positives, especially for behavioral design patterns, as it is difficult to distinguish between a simple delegation of functionality to another object and the actual usage of a design pattern. In this library, where the class hierarchy is very complex and well-structured, I was expecting the scanner to produce many false positives. Please refer to the \autoref{sec:analysis} for more details about the false-positives I found
+In conclusion, due to the size and complexity of this library, it was expected that \textit{pattern4j} would produce false-positives, particularly for more flexible design patterns that can be easily manipulated to fit the architectural needs without affecting the benefits the pattern brings to the codebase (e.g., behavioral design patterns). Additionally, due to the extensive use of design patterns in order to provide a well-structured codebase, the design pattern detection task was expected to be more difficult. As a rough estimation, around 70\% of the detected instances were correctly classified by the tool.
 
 \subsection{Expected Patterns}
 
-The \textit{Caffeine} library is an important open-source project, that has been around for nearly 10 years (first commit on the \displaydate{caffeinerelease}). For this reasons, I was expecting to find a well-structured library with a clear separation of concerns and a good usage of design patterns. From the analysis made above, we can confirm all of the assupmtions. Unfortunately, I was also expecting the use of certain design patterns that were not found by the scanner, but that are commonly used for this type of utility library:
+The \textit{Caffeine} library is an important open-source project, that has been around for nearly 10 years (first commit on the \displaydate{caffeinerelease}). From the start \textit{Caffeine} was expected to be a well-structured library with clear separation of concerns and a good usage of design patterns; assumptions which were all confirmed during the analysis made throughout the previous sections. Strangely, was expected that \texttt{pattern4j} would detect the usage of some additional design patterns, which are commonly used in utility libraries of this kind. The following list outlines the missing design patterns:
 
 \begin{itemize}
-	\item Observer: in order to notify clients of changes in the cache (i.e. evictions, insertions, etc.), the library should implement the observer pattern.
-	\item Command: the library should use the command pattern to encapsulate requests as objects, allowing to parameterize clients with queues, requests and operations.
+	\item \textit{Observer} design pattern: in order to notify clients of changes in the cache (i.e. evictions, insertions, etc.), the library should implement the observer pattern.
+	\item \textit{Command} design pattern: the library should use the command pattern to encapsulate requests as objects, allowing to parameterize clients with queues, requests and operations.
 \end{itemize}
 
-\noindent Both of the patterns were not detected by the scanner, but after further analysis of false-positives produced by the scanner, was possible to identify the \textit{Command} design pattern in the \texttt{BoundedLocalCache} class (refer to \autoref{sec:false-positives}).
-
-On the other hand, by a manual inspection of the codebase (searching for common keywords used commonly in the observer pattern, i.e. \textit{listener}, \textit{observer}) it was not possible to find any usage of the observer pattern in the actual codebase, but rather the use of this design pattern when using some dependencies of the library.
+\noindent After further analysis of the false-positives produced by the scanner, was possible to identify the use of the \textit{Command} design pattern inside the \texttt{BoundedLocalCache} class (for more details, refer to \autoref{sec:false-positives}). On the other hand, by a manual inspection of the codebase (searching for common keywords used commonly in the \textit{Observer} pattern, i.e. \textit{listener}, \textit{observer}) it was not possible to find any implementation of the \textit{Observer} design pattern, but rather only the use of certain related methods (i.e., \textit{addListener}) offered by other project dependencies.
 

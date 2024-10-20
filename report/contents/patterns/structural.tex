@@ -1,14 +1,26 @@
 \subsubsection{Adapter}
 
-The tool detected the usage of the \textit{Adapter} design pattern in 6 different instances. To present a more interesting example, I will focus on the \texttt{BoundedLocalCache} abstract class. This abstract class represents a bounded cache implements the \texttt{LocalCache} interface to offer a consistent API to the client. The \texttt{BoundedLocalCache} class is defined as follows:
+The tool detected the usage of the \textit{Adapter} design pattern in 6 different instances. To present a more interesting example, this section will focus on the \texttt{WeakInterner} final class. This class represents a \texttt{BoundedLocalCache<E,V>} object adapted to the \texttt{Interner} interface by wrapping it in a \texttt{WeakInterner} object that implements the methods specified by the \texttt{Interner} interface. The interface defines only one method \texttt{intern(E sample)}, which is a method common to all interned classes, that allows to add given an object to the \texttt{BoundedLocalCache} instance only if it is not already present in the cache. The \autoref{lst:weakinterner} showcase the general structure of the class.
+
+\begin{lstlisting}[language=Java, caption={\texttt{WeakInterner} adapter structure}, label={lst:weakinterner}]
+final class WeakInterner<E> implements Interner<E> {
+  final BoundedLocalCache<E, Boolean> cache;
+  ...
+  @Override public E intern(E sample) {
+    // Append to cache only if not present
+  }
+}
+\end{lstlisting}
+
+\noindent In summary, The \texttt{WeakInterner} class is a concrete implementation of the \texttt{Interner} interface that adapts the \texttt{BoundedLocalCache} object to the \texttt{Interner} interface in order to provide a more specific behavior.
 
 \subsubsection{Decorator}
 
-The tool detected the usage of the \textit{Decorator} design pattern in 3 different instances: \texttt{GuardedScheduler} (decorator of \texttt{Scheduler}), \texttt{BoundedWeigher} (decorator of \texttt{Weigher}) and \texttt{GuardedStatsCounter} (decorator of \texttt{StatsCounter}). Since this design pattern is implemented in a similar way in all found instances, I will only present the \texttt{Weigher}-\texttt{BoundedWeigher} pair as an example as it is the most idiomatic across the codebase.
+The tool detected the usage of the \textit{Decorator} design pattern in 3 different instances: \texttt{GuardedScheduler} (decorator of \texttt{Scheduler}), \texttt{BoundedWeigher} (decorator of \texttt{Weigher}) and \texttt{GuardedStatsCounter} (decorator of \texttt{StatsCounter}). Since this design pattern is implemented in a similar way in all found instances, only the \texttt{Weigher}-\texttt{BoundedWeigher} pair will be presented as it represents the most idiomatic usage of this design pattern among the found instances.
 
-As we have seen in the previous section (refer to subsection \ref{sec:singleton}), the \texttt{Weigher} interface offers two static methods for the creation of \texttt{Weigher} objects: \texttt{singletonWeigher} and \texttt{boundedWeigher}. The \texttt{BoundedWeigher} class is a concrete implementation of the \texttt{Weigher} interface that decorates another \texttt{Weigher} object by adding an additional method \texttt{writeReplace()} to the object (needed for serialization, refer to the \href{https://docs.oracle.com/javase//7/docs/technotes/guides/serialization/examples/symbol/index3.html}{Oracle documentation}). The class uses internally the \textit{delegate} object to perform the actual work. The listing below showcases the main structure of the \texttt{BoundedWeigher} class:
+As we have seen in the previous section (refer to subsection \ref{sec:singleton}), the \texttt{Weigher} interface offers two static methods for the creation of specialized \texttt{Weigher} objects: \texttt{singletonWeigher} and \texttt{boundedWeigher}. The \texttt{BoundedWeigher} class is a decorates an existing \texttt{Weigher} object by adding a method \texttt{writeReplace()}, which is needed for serialization purposes (refer to the \href{https://docs.oracle.com/javase//7/docs/technotes/guides/serialization/examples/symbol/index3.html}{Oracle documentation}). To do so, the class uses the internally the \textit{delegate} object (\texttt{Weigher} instance passed by reference via constructor) to perform the actual work. The listing below showcases the main structure of the \texttt{BoundedWeigher} class:
 
-\begin{lstlisting}[language=Java]
+\begin{lstlisting}[language=Java, caption={\texttt{BoundedWeigher} final class decorating a \texttt{Weigher} instance}, captionpos=b]
 final class BoundedWeigher<K, V> implements Weigher<K, V>, Serializable {
   @SuppressWarnings("serial")
   final Weigher<? super K, ? super V> delegate;
