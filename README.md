@@ -1,13 +1,3 @@
----
-author:
-  - Luca Di Bello
-bibliography:
-  - references.bib
-title: |
-  Finding and Documenting Design Patterns\
-  Software Design and Modelling, Università della Svizzera Italiana
----
-
 # Finding and Documenting Design Patterns
 
 > Luca Di Bello, Software Design and Modeling @ USI (Università della Svizzera Italiana)
