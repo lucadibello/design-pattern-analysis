@@ -229,7 +229,7 @@ based on a specified class name. The method signatures are defined in
 [\[lst:nodefactory\]](#lst:nodefactory){reference-type="ref+label"
 reference="lst:nodefactory"}.
 
-```{#lst:nodefactory .java language="Java" caption="\texttt{NodeFactory} interface static constructor methods" captionpos="b" label="lst:nodefactory"}
+```java
 static NodeFactory<Object, Object> newFactory(String className)
 static <K, V> NodeFactory<K, V> newFactory(Caffeine<K, V> builder, boolean isAsync)
 ```
@@ -251,7 +251,7 @@ the _Singleton_ design pattern in the `NodeFactory` interface. This is a
 clear example of the limitations of the tool, as the pattern is clearly
 implemented in the codebase.
 
-```{#lst:nodefactorysingleton .java language="Java" caption="\texttt{NodeFactory} \textit{Singleton} design pattern implementation using a static \texttt{ConcurrentMap} instance" captionpos="b" label="lst:nodefactorysingleton"}
+```java
 var factory = FACTORIES.get(className);
     if (factory == null) {
       factory = FACTORIES.computeIfAbsent(
@@ -267,7 +267,7 @@ types. The method signatures are defined in
 [\[lst:nodefactorymethods\]](#lst:nodefactorymethods){reference-type="ref+label"
 reference="lst:nodefactorymethods"}.
 
-```{#lst:nodefactorymethods .java language="Java" caption="\texttt{NodeFactory} abstract factory methods to create \texttt{Node<K,V>} objects" captionpos="b" label="lst:nodefactorymethods"}
+```java
 Node<K, V> newNode(K key, ReferenceQueue<K> ref, V value,
   ReferenceQueue<V> valueReferenceQueue, int weight, long now);
 Node<K, V> newNode(Object keyReference, V value,
@@ -307,7 +307,7 @@ in
 [\[lst:singletonweigher\]](#lst:singletonweigher){reference-type="ref+label"
 reference="lst:singletonweigher"}.
 
-```{#lst:singletonweigher .java language="Java" caption="\texttt{SingletonWeigher} enum definition" captionpos="b" label="lst:singletonweigher"}
+```java
 enum SingletonWeigher implements Weigher<Object, Object> {
   INSTANCE;
   // dummy weigh method
@@ -332,7 +332,7 @@ that simply reads the `INSTANCE` entry from the `SingletonWeigher` enum
 and performs an unchecked cast to the `Weigher<K, V>` type, effectively
 returning the singleton instance:
 
-```{#lst:singletonweigher .java language="Java" caption="SingletonWeigher shorthand method to return the singleton instance using an unchecked cast" captionpos="b" label="lst:singletonweigher"}
+```java
 static <K, V> Weigher<K, V> singletonWeigher() {
   @SuppressWarnings("unchecked")
   var instance = (Weigher<K, V>) SingletonWeigher.INSTANCE;
@@ -347,7 +347,7 @@ are defined in
 [\[lst:weigherfactorymethods\]](#lst:weigherfactorymethods){reference-type="ref+label"
 reference="lst:weigherfactorymethods"}.
 
-```{#lst:weigherfactorymethods .java language="Java" caption="\texttt{Weigher} interface utility methods to create different kinds of \texttt{Weigher<K,V>}" captionpos="b" label="lst:weigherfactorymethods"}
+```java
 static <K, V> Weigher<K, V> singletonWeigher()
 static <K, V> Weigher<K, V> boundedWeigher(Weigher<K, V> w)
 ```
@@ -378,7 +378,7 @@ instance only if it is not already present in the cache. The
 reference="lst:weakinterner"} showcase the general structure of the
 class.
 
-```{#lst:weakinterner .java language="Java" caption="\texttt{WeakInterner} adapter structure" label="lst:weakinterner"}
+```java
 final class WeakInterner<E> implements Interner<E> {
   final BoundedLocalCache<E, Boolean> cache;
   ...
@@ -416,7 +416,7 @@ instance passed by reference via constructor) to perform the actual
 work. The listing below showcases the main structure of the
 `BoundedWeigher` class:
 
-```{.java language="Java" caption="\texttt{BoundedWeigher} final class decorating a \texttt{Weigher} instance" captionpos="b"}
+```java
 final class BoundedWeigher<K, V> implements Weigher<K, V>, Serializable {
   @SuppressWarnings("serial")
   final Weigher<? super K, ? super V> delegate;
